@@ -1,0 +1,47 @@
+{
+    "name": "evaneos/trolamine",
+    "description": "The security plugin for Pyrite",
+    "version": "1.0.0",
+    "type": "library",
+    "homepage" : "http://github.com/evaneos/trolamine",
+    "keywords": [],
+    "time": "2014-04-07",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Remi San",
+            "email": "remi@evaneos.com",
+            "role": "Developer"
+        },
+        {
+            "name" : "Evaneos",
+            "email" : "dev@evaneos.com",
+            "homepage" : "http://www.evaneos.com",
+            "role" : "Developer"
+        }
+    ],
+    "keywords" : [
+        "pyrite",
+        "php",
+        "security",
+        "authentication"
+    ],
+    "repositories": [
+        {
+            "type" : "vcs",
+            "url" : "git@github.com:Evaneos/pyrite.git"
+        }
+    ],
+    "autoload" : {
+        "psr-0" : {
+            "Trolamine\\" : "src/"
+        }
+    },
+    "require" : {
+    	"evaneos/pyrite" : "dev-master"
+    },
+    "require-dev" : {
+        "phpunit/phpunit": "4.0.*"
+	},
+    "minimum-stability" : "dev"
+}
