@@ -21,7 +21,7 @@ class AuthenticationLayer extends AbstractLayer {
      * 
      * @var string
      */
-    private $sessionVarName = 'authentication';
+    private static $sessionVarName = 'authentication';
     
     /**
      * The container
@@ -39,16 +39,24 @@ class AuthenticationLayer extends AbstractLayer {
     public function __construct(Container $container, $sessionVarName = null) {
         $this->container = $container;
         if ($sessionVarName != null) {
-            $this->sessionVarName= $sessionVarName;
+            self::$sessionVarName= $sessionVarName;
         }
+    }
+    
+    /**
+     *
+     * @return string
+     */
+    public static function getSessionVarName() {
+        return self::$sessionVarName;
     }
     
     /**
      * 
      * @param string $sessionVarName
      */
-    public function setSessionVarName($sessionVarName) {
-        $this->sessionVarName= $sessionVarName;
+    public static function setSessionVarName($sessionVarName) {
+        self::$sessionVarName= $sessionVarName;
     }
     
     /**
@@ -58,7 +66,7 @@ class AuthenticationLayer extends AbstractLayer {
     protected function before(ResponseBag $responseBag) {
         /* @var $request Request */
         $request = $this->request;
-        $authentication = $request->getSession()->get($this->sessionVarName);
+        $authentication = $request->getSession()->get(self::$sessionVarName);
         $responseBag->set(VAR_NAME, $authentication);
         $this->container->get('SecurityContext')->setAuthentication($authentication);
     }
@@ -73,7 +81,7 @@ class AuthenticationLayer extends AbstractLayer {
         
         /* @var $request Request */
         $request = $this->request;
-        $request->getSession()->set($this->sessionVarName, $authentication);
+        $request->getSession()->set(self::$sessionVarName, $authentication);
     }
     
 }
