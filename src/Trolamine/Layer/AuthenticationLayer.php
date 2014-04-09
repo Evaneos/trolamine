@@ -6,6 +6,7 @@ use Pyrite\Response\ResponseBag;
 use Trolamine\Core\Authentication\Authentication;
 use Symfony\Component\HttpFoundation\Request;
 use Pyrite\Container\Container;
+use Trolamine\Core\Authentication\AnonymousAuthenticationToken;
 
 class AuthenticationLayer extends AbstractLayer {
     
@@ -66,9 +67,23 @@ class AuthenticationLayer extends AbstractLayer {
     protected function before(ResponseBag $responseBag) {
         /* @var $request Request */
         $request = $this->request;
-        $authentication = $request->getSession()->get(self::$sessionVarName);
-        $responseBag->set(VAR_NAME, $authentication);
+        $authentication = $request->getSession()->get(self::$sessionVarName, null);
+        if ($authentication == null) {
+            $authentication = new AnonymousAuthenticationToken();
+        }
+        $responseBag->set(self::VAR_NAME, $authentication);
         $this->container->get('SecurityContext')->setAuthentication($authentication);
+        $sc = $this->container->get('SecurityContext');
+//         $sc->setAuthentication($authentication);
+        var_dump($sc);
+        $sc2 = $this->container->get('SecurityContext');
+        var_dump($sc2);
+        $sc3 = $this->container->get('SecurityContext');
+        var_dump($sc3);
+        die();        
+        var_dump($authentication);
+        var_dump($this->container->get('SecurityContext'));
+        exit;
     }
     
     /**
@@ -77,7 +92,7 @@ class AuthenticationLayer extends AbstractLayer {
      */
     protected function after(ResponseBag $responseBag) {
         /* @var $authentication Authentication */
-        $authentication = $responseBag->get(VAR_NAME, null);
+        $authentication = $responseBag->get(self::VAR_NAME, null);
         
         /* @var $request Request */
         $request = $this->request;
