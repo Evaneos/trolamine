@@ -40,7 +40,7 @@ class SimpleSecurityContext implements SecurityContext {
     
     
     public function getAccessDecisionManager() {
-        $this->accessDecisionManager = $accessDecisionManager;
+        return $this->accessDecisionManager;
     }
     
     function hasRole($roleName) {

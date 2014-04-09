@@ -9,6 +9,8 @@ use Trolamine\Core\Access\AccessDecisionManager;
 use Trolamine\Core\Access\UnanimousBased;
 use Trolamine\Core\Access\ConsensusBased;
 use Trolamine\Core\Access\AffirmativeBased;
+use Trolamine\Factory\Secured;
+use Trolamine\Core\SimpleSecurityContext;
 
 class SecurityTest extends PHPUnit_Framework_TestCase {
     
@@ -213,6 +215,41 @@ class SecurityTest extends PHPUnit_Framework_TestCase {
             $this->assertTrue(true, 'ROLE_TEST AND ROLE_ADMIN');
         } catch (Exception $e) {
             $this->assertTrue(false, 'ROLE_TEST AND ROLE_ADMIN');
+        }
+    }
+    
+    public function nestedCall($toto, $titi, $config) {
+        $securityContext = new SimpleSecurityContext(new UnanimousBased(array($this->voter)));
+        $securityContext->setAuthentication($this->authentication);
+        $secured = new Secured($securityContext, $config);
+        $secured->preAuthorize();
+    }
+    
+    public function testSecuredSuccess() {
+        $config = array(
+            'nestedCall'=>array(
+                Secured::PRE_AUTHORIZE => array(
+                    $this->adminConfigAttribute
+                )    
+            )    
+        );
+        $this->nestedCall('toto', 'titi', $config);
+        $this->assertTrue(true);
+    }
+    
+    public function testSecuredFailure() {
+        $config = array(
+            'nestedCall'=>array(
+                Secured::PRE_AUTHORIZE => array(
+                    $this->testConfigAttribute
+                )
+            )
+        );
+        try {
+            $this->nestedCall('toto', 'titi', $config);
+            $this->assertTrue(false);
+        } catch (\exception $e){
+            $this->assertTrue(true);
         }
     }
 }
