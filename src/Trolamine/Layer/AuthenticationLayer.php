@@ -73,17 +73,6 @@ class AuthenticationLayer extends AbstractLayer {
         }
         $responseBag->set(self::VAR_NAME, $authentication);
         $this->container->get('SecurityContext')->setAuthentication($authentication);
-        $sc = $this->container->get('SecurityContext');
-//         $sc->setAuthentication($authentication);
-        var_dump($sc);
-        $sc2 = $this->container->get('SecurityContext');
-        var_dump($sc2);
-        $sc3 = $this->container->get('SecurityContext');
-        var_dump($sc3);
-        die();        
-        var_dump($authentication);
-        var_dump($this->container->get('SecurityContext'));
-        exit;
     }
     
     /**
