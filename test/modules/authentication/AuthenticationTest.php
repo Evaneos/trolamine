@@ -38,6 +38,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
         
         $userDetailsService = $this->getUserDetailServiceMock(
             new User(
+                null,
                 'test',
                 $this->passwordEncoder->encodePassword('password')
             )
@@ -119,7 +120,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
     }
     
     public function testAuthenticationFailureBadCredentials() {
-        $userDetails = new User('test', $this->passwordEncoder->encodePassword('pwd'));
+        $userDetails = new User(null, 'test', $this->passwordEncoder->encodePassword('pwd'));
         $this->authenticationFailure($userDetails, '\\Trolamine\\Core\\Exception\\BadCredentialsException');
     }
 }
