@@ -62,7 +62,7 @@ class Secured {
         $methodName = $method['function'];
         
         if (is_array($this->config) && count($this->config)>0 && array_key_exists($methodName, $this->config)) {
-            $actions = $this->config[$method];
+            $actions = $this->config[$methodName];
             if (is_array($actions) && count($actions)>0 && array_key_exists($actionName,  $actions)) {
                 $checks = $actions[$actionName];
                 if (is_array($checks) && count($checks)>0) {

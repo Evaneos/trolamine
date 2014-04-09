@@ -7,6 +7,7 @@ interface SecuredClassFactory {
      * The factory method
      * 
      * @param  string $className         The class name of the class instance to return
+     * @param  array  $constructorArgs   The constructor args
      * @param  array  $securedParameters The associative array of parameters :
      *                                   array (
      *                                       ['methodNameToSecure'] => array (
@@ -18,6 +19,6 @@ interface SecuredClassFactory {
      * 
      * @return mixed  the secured class instance which extends the class passed in parameters
      */
-    function build($className, array $securedParameters=array());
+    function build($className, array $constructorArgs = array(), array $securedParameters=array());
     
 }

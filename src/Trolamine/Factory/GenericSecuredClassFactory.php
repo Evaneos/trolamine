@@ -1,6 +1,8 @@
 <?php
 namespace Trolamine\Factory;
 
+use Pyrite\Container\Container;
+
 class GenericSecuredClassFactory implements SecuredClassFactory {
     
     /**
@@ -19,33 +21,34 @@ class GenericSecuredClassFactory implements SecuredClassFactory {
         $this->container = $container;
     }
     
-    function build($className, array $securedParameters=array()) {
+    /**
+     * (non-PHPdoc)
+     * @see \Trolamine\Factory\SecuredClassFactory::build()
+     */
+    function build($className, array $constructorArgs = array(), array $securedParameters=array()) {
         
-        $ref = new \ReflectionClass($className);
+        $instance = $this->getSecuredInstance($className, $constructorArgs);
+        $secured = new Secured($this->container->get('SecurityContext'), $securedParameters);
+        $instance->setSecured($secured);
         
-        foreach ($securedParameters as $methodName=>$secureActions) {
-            if (!$ref->hasMethod($name)) {
-                throw new \BadMethodCallException('Method "'.$methodName.'" doesn\'t exist or is not public for class "'.$className.'"');
-            }
-            
-            //Ignores if no parameters are passed
-            if (is_array($secureActions) && count($secureActions)>0) {
-                if (array_key_exists(Secured::PRE_AUTHORIZE, $secureActions)) {
-                    $preAuthorizeConfigAttributes = $secureActions[Secured::PRE_AUTHORIZE];
-                    
-                    if (is_array($preAuthorizeConfigAttributes) && count($preAuthorizeConfigAttributes)>0) {
-                        
-                    }
-                }
-                
-                if (array_key_exists(Secured::POST_AUTHORIZE, $secureActions)) {
-                    $postAuthorizeConfigAttributes = $secureActions[Secured::POST_AUTHORIZE];
-                }
-                
-                //ignores other instruction keys
-            }
-        }
+    }
+    
+    /**
+     * Gets the secured instance for the class
+     * 
+     * @param string $className
+     * @param array  $constructorArgs   The constructor args
+     * 
+     * @return the secured instance of the class
+     */
+    function getSecuredInstance($className, array $constructorArgs) {
+        //TODO get the securedClassName
+        $securedClassName = $className;
         
+        $class = new \ReflectionClass($securedClassName);
+        $instance = $class->newInstanceArgs($constructorArgs);
+        
+        return $instance;
     }
     
 }
