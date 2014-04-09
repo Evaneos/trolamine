@@ -30,16 +30,16 @@ class GenericSecuredClassFactory implements SecuredClassFactory {
             
             //Ignores if no parameters are passed
             if (is_array($secureActions) && count($secureActions)>0) {
-                if (array_key_exists(SecuredClassFactory::PRE_AUTHORIZE, $secureActions)) {
-                    $preAuthorizeConfigAttributes = $secureActions[SecuredClassFactory::PRE_AUTHORIZE];
+                if (array_key_exists(Secured::PRE_AUTHORIZE, $secureActions)) {
+                    $preAuthorizeConfigAttributes = $secureActions[Secured::PRE_AUTHORIZE];
                     
                     if (is_array($preAuthorizeConfigAttributes) && count($preAuthorizeConfigAttributes)>0) {
                         
                     }
                 }
                 
-                if (array_key_exists(SecuredClassFactory::POST_AUTHORIZE, $secureActions)) {
-                    $postAuthorizeConfigAttributes = $secureActions[SecuredClassFactory::POST_AUTHORIZE];
+                if (array_key_exists(Secured::POST_AUTHORIZE, $secureActions)) {
+                    $postAuthorizeConfigAttributes = $secureActions[Secured::POST_AUTHORIZE];
                 }
                 
                 //ignores other instruction keys

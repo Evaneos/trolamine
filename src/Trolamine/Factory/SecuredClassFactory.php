@@ -3,12 +3,6 @@ namespace Trolamine\Factory;
 
 interface SecuredClassFactory {
     
-    const PRE_AUTHORIZE = 'preAuthorize';
-    const POST_AUTHORIZE = 'postAuthorize';
-    const PRE_FILTER = 'preFilter';
-    const POST_FILTER = 'postFilter';
-    
-    
     /**
      * The factory method
      * 
