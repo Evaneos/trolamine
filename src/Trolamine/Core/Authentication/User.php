@@ -6,6 +6,7 @@ namespace Trolamine\Core\Authentication;
  */
 class User implements UserDetails {
     
+    private $user;
     private $username;
     private $password;
     private $accountNonExpired;
@@ -16,6 +17,7 @@ class User implements UserDetails {
     /**
      * Constructor
      * 
+     * @param string  $user
      * @param string  $username
      * @param string  $password
      * @param boolean $accountNonExpired
@@ -23,13 +25,22 @@ class User implements UserDetails {
      * @param boolean $credentialsNonExpired
      * @param boolean $enabled
      */
-    public function __construct($username, $password, $accountNonExpired=true, $accountNonLocked=true, $credentialsNonExpired=true, $enabled=true) {
+    public function __construct($user, $username, $password, $accountNonExpired=true, $accountNonLocked=true, $credentialsNonExpired=true, $enabled=true) {
+        $this->user = $user;
         $this->username = $username;
         $this->password = $password;
         $this->accountNonExpired = $accountNonExpired;
         $this->accountNonLocked = $accountNonLocked;
         $this->credentialsNonExpired = $credentialsNonExpired;
         $this->enabled = $enabled;
+    }
+    
+    /**
+     * (non-PHPdoc)
+     * @see \Trolamine\Core\Authentication\UserDetails::getUser()
+     */
+    function getUser() {
+        return $this->$user;
     }
     
     /**

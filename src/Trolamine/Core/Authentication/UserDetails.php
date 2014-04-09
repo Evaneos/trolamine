@@ -19,6 +19,13 @@ namespace Trolamine\Core\Authentication;
 interface UserDetails {
     
     /**
+     * Returns the encapsulated user object
+     * 
+     * @return object the user object encapsulated
+     */
+    function getUser();
+    
+    /**
      * Returns the password used to authenticate the user.
      *
      * @return string the password

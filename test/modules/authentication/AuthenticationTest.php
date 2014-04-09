@@ -65,6 +65,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
     
     public function testAuthenticationFailureDisabled() {
         $userDetails = new User(
+            null,
             'test',
             $this->passwordEncoder->encodePassword('password'),
             true,
@@ -78,6 +79,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
     
     public function testAuthenticationFailureAccountExpired() {
         $userDetails = new User(
+                null,
                 'test',
                 $this->passwordEncoder->encodePassword('password'),
                 false, //account expired
@@ -90,6 +92,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
     
     public function testAuthenticationFailureCredentialsExpired() {
         $userDetails = new User(
+                null,
                 'test',
                 $this->passwordEncoder->encodePassword('password'),
                 true,
@@ -102,6 +105,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
     
     public function testAuthenticationFailureLocked() {
         $userDetails = new User(
+                null,
                 'test',
                 $this->passwordEncoder->encodePassword('password'),
                 true,
