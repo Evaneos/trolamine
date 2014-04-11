@@ -1,5 +1,5 @@
 <?php
-namespace Trolamine\Core;
+namespace Trolamine\Activator;
 
 use DICIT\Activators\AbstractActivatorDecorator;
 use DICIT\Container;
