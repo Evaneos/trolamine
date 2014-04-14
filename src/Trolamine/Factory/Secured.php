@@ -52,7 +52,7 @@ class Secured {
                 $newArg = $arg;
                 if ($arg == self::RETURN_OBJECT_ALIAS) {
                     $newArg = $object;
-                } else if (strpos($arg, self::PREFIX) === 0) {
+                } else if (is_string($arg) && strpos($arg, self::PREFIX) === 0) {
                     $argName = substr($arg, 1);
                     if (array_key_exists($argName, $parameters)) {
                         $newArg = $parameters[$argName];
