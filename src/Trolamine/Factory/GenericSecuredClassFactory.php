@@ -139,9 +139,13 @@ class GenericSecuredClassFactory implements SecuredClassFactory {
                     /* @var $parameter \ReflectionParameter */
                     $paramName = $parameter->getName();
         
-                    $type = $parameter->getClass()->name;
-                    if ($type != null) {
-                        $uses[] = 'use '.$type.';';
+                    $typeClass = $parameter->getClass();
+                    if ($typeClass != null) {
+                        $type = $typeClass->name;
+                    
+                        if ($type != null) {
+                            $uses[] = 'use '.$type.';';
+                        }
                     }
         
                     $params[$paramName] = '$'.$paramName;
@@ -156,11 +160,10 @@ class GenericSecuredClassFactory implements SecuredClassFactory {
                 $methodContent .= '        $this->secured->preAuthorize(\''.$methodName.'\', $'.$paramsVar.');'."\n";
                 $methodContent .= '        $'.$resultVar.' = parent::'.$methodName.'('.implode(', ', $params).');'."\n";
                 $methodContent .= '        $this->secured->postAuthorize(\''.$methodName.'\', $'.$paramsVar.', $'.$resultVar.');'."\n";
+                $methodContent .= '        return $'.$resultVar.';'."\n";
                 $methodContent .= '    }'."\n";
         
                 $methodsArray[] = $methodContent;
-            } else {
-                //TODO gérer l'appel à __call
             }
         }
         
