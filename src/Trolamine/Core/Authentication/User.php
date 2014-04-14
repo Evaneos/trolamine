@@ -40,7 +40,7 @@ class User implements UserDetails {
      * @see \Trolamine\Core\Authentication\UserDetails::getUser()
      */
     function getUser() {
-        return $this->$user;
+        return $this->user;
     }
     
     /**

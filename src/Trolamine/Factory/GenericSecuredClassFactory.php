@@ -40,6 +40,8 @@ class GenericSecuredClassFactory implements SecuredClassFactory {
         $instance = $this->getSecuredInstance($instance, $securedParameters);
         $secured = new Secured($this->container->get('SecurityContext'), $securedParameters);
         $instance->setSecured($secured);
+        
+        return $instance;
     }
     
     /**
@@ -54,9 +56,8 @@ class GenericSecuredClassFactory implements SecuredClassFactory {
         $class = new \ReflectionClass($instance);
         $securedInstance = $this->getSecuredClassInstance($class, $securedParameters);
         $securedClass = new \ReflectionClass($securedInstance);
-        
+
         //Copy the properties
-        
         $properties = $class->getProperties();
         foreach($properties as $property) {
             /* @var $property \ReflectionProperty */
@@ -67,11 +68,11 @@ class GenericSecuredClassFactory implements SecuredClassFactory {
             $securedProperty->setAccessible(true);
             
             if ($property->isStatic()) {
-                $propertyValue = $property->getValue($instance);
-                $securedProperty->setValue($securedInstance, $propertyValue);
-            } else {
                 $propertyValue = $property->getValue();
                 $securedProperty->setValue($propertyValue);
+            } else {
+                $propertyValue = $property->getValue($instance);
+                $securedProperty->setValue($securedInstance, $propertyValue);
             }
         }
         
