@@ -2,12 +2,16 @@
 namespace Trolamine\Factory;
 
 use Trolamine\Core\SecurityContext;
+use Trolamine\Core\Access\OperationConfigAttribute;
 class Secured {
     
     const PRE_AUTHORIZE = 'preAuthorize';
     const POST_AUTHORIZE = 'postAuthorize';
     const PRE_FILTER = 'preFilter';
     const POST_FILTER = 'postFilter';
+    
+    const PREFIX = '#';
+    const RETURN_OBJECT_ALIAS = '#returnObject';
     
     /**
      * The associative array of parameters :
@@ -41,6 +45,25 @@ class Secured {
         $this->config = $config;
     }
     
+    protected function getParametersByRealValues($args, array $parameters, $object=null) {
+        $newArgs = array();
+        if ($args != null && is_array($args) && count($args)>0) {
+            foreach ($args as $arg) {
+                $newArg = $arg;
+                if ($arg == self::RETURN_OBJECT_ALIAS) {
+                    $newArg = $object;
+                } else if (strpos($arg, self::PREFIX) === 0) {
+                    $argName = substr($arg, 1);
+                    if (array_key_exists($argName, $parameters)) {
+                        $newArg = $parameters[$argName];
+                    }
+                }
+                $newArgs[] = $newArg;
+            }
+        }
+        return $newArgs;
+    }
+    
     /**
      * Retrieves the conditions to check and checks them
      * 
@@ -57,11 +80,22 @@ class Secured {
             if (is_array($actions) && count($actions)>0 && array_key_exists($actionName,  $actions)) {
                 $checks = $actions[$actionName];
                 if (is_array($checks) && count($checks)>0) {
-                    //TODO replace the ref args by the real value
+                    
+                    //replace the ref args by the real value
+                    $newChecks= array();
+                    foreach ($checks as $check) {
+                        /* @var $check OperationConfigAttribute */
+                        $args = $this->getParametersByRealValues($check->args, $parameters, $object);
+                        
+                        $newCheck = clone $check;
+                        $newCheck->args = $args;
+                        $newChecks[] = $newCheck;
+                    }
+                    
                     $this->securityContext->getAccessDecisionManager()->decide(
                         $this->securityContext->getAuthentication(),
                         $object,
-                        $checks
+                        $newChecks
                     );
                 }
             }

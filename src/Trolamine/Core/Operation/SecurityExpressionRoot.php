@@ -5,14 +5,7 @@ use \Trolamine\Core\Permission\Permission;
 use \Trolamine\Core\Permission\PermissionEvaluator;
 use \Trolamine\Core\Authentication\Authentication;
 
-class SecurityExpressionRoot implements SecurityExpressionOperations{
-    
-    /**
-     * The authentication object
-     * 
-     * @var Authentication
-     */
-    private $authentication;
+class SecurityExpressionRoot extends AbstractOperation implements SecurityExpressionOperations{
     
     /**
      * The permission evaluator
@@ -20,26 +13,6 @@ class SecurityExpressionRoot implements SecurityExpressionOperations{
      * @var PermissionEvaluator
      */
     private $permissionEvaluator;
-    
-    public function __construct(Authentication $a=null) {
-        $this->authentication =$a;
-    }
-    
-    /**
-     * (non-PHPdoc)
-     * @see \Trolamine\Core\Operation\Operation::getAuthentication()
-     */
-    public function setAuthentication(Authentication $authentication) {
-        $this->authentication =$authentication;
-    }
-    
-    /**
-     * (non-PHPdoc)
-     * @see \Trolamine\Core\Operation\Operation::getAuthentication()
-     */
-    public function getAuthentication(){
-        return $this->authentication;
-    }
     
     /**
      * (non-PHPdoc)
