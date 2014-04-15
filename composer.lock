@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Evaneos/pyrite.git",
-                "reference": "0223e395ac07a199d2a58d8304fd5d67ca3f2119"
+                "reference": "f04aecf5b316d35717d075a62f223fc862a91b2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Evaneos/pyrite/zipball/0223e395ac07a199d2a58d8304fd5d67ca3f2119",
-                "reference": "0223e395ac07a199d2a58d8304fd5d67ca3f2119",
+                "url": "https://api.github.com/repos/Evaneos/pyrite/zipball/f04aecf5b316d35717d075a62f223fc862a91b2f",
+                "reference": "f04aecf5b316d35717d075a62f223fc862a91b2f",
                 "shasum": ""
             },
             "require": {
@@ -56,7 +56,7 @@
                 "source": "https://github.com/Evaneos/pyrite/tree/master",
                 "issues": "https://github.com/Evaneos/pyrite/issues"
             },
-            "time": "2014-04-02 10:14:25"
+            "time": "2014-04-10 15:26:51"
         },
         {
             "name": "oliviermadre/dic-it",
@@ -64,12 +64,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/oliviermadre/dic-it.git",
-                "reference": "d5e865267d6e325cc2d0df0479d705078b8b2df9"
+                "reference": "8804378ea638409563d098468db2b06d5b504c9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oliviermadre/dic-it/zipball/d5e865267d6e325cc2d0df0479d705078b8b2df9",
-                "reference": "d5e865267d6e325cc2d0df0479d705078b8b2df9",
+                "url": "https://api.github.com/repos/oliviermadre/dic-it/zipball/8804378ea638409563d098468db2b06d5b504c9b",
+                "reference": "8804378ea638409563d098468db2b06d5b504c9b",
                 "shasum": ""
             },
             "require": {
@@ -106,13 +106,13 @@
                 {
                     "name": "Olivier Madre",
                     "email": "terenas@gmail.com",
-                    "homepage": "http://about.me/oliviermadre",
+                    "homepage": "http://www.wools.io",
                     "role": "Developer"
                 }
             ],
             "description": "Yet another dependency injection container",
             "homepage": "http://github.com/oliviermadre/dic-it",
-            "time": "2014-03-31 15:50:03"
+            "time": "2014-04-11 16:36:09"
         },
         {
             "name": "psr/log",
@@ -329,12 +329,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "11ad7352c7bfa12145a0df8e1c4c303c585ce169"
+                "reference": "049b2acf5fc5793532c8719dc7edb56c6f12d9a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/11ad7352c7bfa12145a0df8e1c4c303c585ce169",
-                "reference": "11ad7352c7bfa12145a0df8e1c4c303c585ce169",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/049b2acf5fc5793532c8719dc7edb56c6f12d9a3",
+                "reference": "049b2acf5fc5793532c8719dc7edb56c6f12d9a3",
                 "shasum": ""
             },
             "require": {
@@ -375,7 +375,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-03-26 11:35:33"
+            "time": "2014-04-11 18:33:45"
         },
         {
             "name": "symfony/http-kernel",
@@ -384,12 +384,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "a7ef61c6fde565372feebecbf678d821c0a425d5"
+                "reference": "2c47845bb1eb4ae5078779b0e83f4bf7c9565cb9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/a7ef61c6fde565372feebecbf678d821c0a425d5",
-                "reference": "a7ef61c6fde565372feebecbf678d821c0a425d5",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/2c47845bb1eb4ae5078779b0e83f4bf7c9565cb9",
+                "reference": "2c47845bb1eb4ae5078779b0e83f4bf7c9565cb9",
                 "shasum": ""
             },
             "require": {
@@ -448,7 +448,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-05 11:49:17"
+            "time": "2014-04-11 18:33:45"
         },
         {
             "name": "symfony/routing",
@@ -1055,12 +1055,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "1f9a98e6f5dfe0524cb8c6166f7c82f3e9ae1529"
+                "reference": "180da8080bb15ca0c6de8ec94585bdba018a58d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/1f9a98e6f5dfe0524cb8c6166f7c82f3e9ae1529",
-                "reference": "1f9a98e6f5dfe0524cb8c6166f7c82f3e9ae1529",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/180da8080bb15ca0c6de8ec94585bdba018a58d0",
+                "reference": "180da8080bb15ca0c6de8ec94585bdba018a58d0",
                 "shasum": ""
             },
             "require": {
@@ -1113,7 +1113,7 @@
                 "export",
                 "exporter"
             ],
-            "time": "2014-02-16 08:26:31"
+            "time": "2014-04-09 10:35:13"
         },
         {
             "name": "sebastian/version",

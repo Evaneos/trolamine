@@ -36,7 +36,7 @@ class SecurityActivator extends AbstractActivatorDecorator {
      * (non-PHPdoc)
      * @see \DICIT\Activators\AbstractActivatorDecorator::after()
      */
-    protected function after(Container $container, &$serviceName, array &$serviceConfig, &$returnObject) {
+    protected function after(Container $container, &$serviceName, array &$serviceConfig, $returnObject) {
         $securityConfig = $this->getSecurityConfig($container, $serviceConfig);
         return $this->securedClassFactory->build($returnObject, $securityConfig);
     }
