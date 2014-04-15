@@ -7,6 +7,7 @@ interface SecuredClassFactory {
      * The factory method
      * 
      * @param  object $instance          The instance to secure
+     * @param  string $alias             The alias of the service to secure
      * @param  array  $securedParameters The associative array of parameters :
      *                                   array (
      *                                       ['methodNameToSecure'] => array (
@@ -18,6 +19,6 @@ interface SecuredClassFactory {
      * 
      * @return mixed  the secured class instance which extends the class passed in parameters
      */
-    function build($instance, array $securedParameters=array());
+    function build($instance, $alias, array $securedParameters=array());
     
 }

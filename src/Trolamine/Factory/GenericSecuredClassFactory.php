@@ -36,8 +36,8 @@ class GenericSecuredClassFactory implements SecuredClassFactory {
      * (non-PHPdoc)
      * @see \Trolamine\Factory\SecuredClassFactory::build()
      */
-    function build($instance = array(), array $securedParameters=array()) {
-        $instance = $this->getSecuredInstance($instance, $securedParameters);
+    function build($instance, $alias, array $securedParameters=array()) {
+        $instance = $this->getSecuredInstance($instance, $alias, $securedParameters);
         $secured = new Secured($this->container->get('SecurityContext'), $securedParameters);
         $instance->setSecured($secured);
         
@@ -48,13 +48,14 @@ class GenericSecuredClassFactory implements SecuredClassFactory {
      * Gets the secured instance for the class
      * 
      * @param object $instance          The unsecured instance
+     * @param string $alias 
      * @param array  $securedParameters
      * 
      * @return the secured instance of the class
      */
-    function getSecuredInstance($instance, array $securedParameters) {
+    function getSecuredInstance($instance, $alias, array $securedParameters) {
         $class = new \ReflectionClass($instance);
-        $securedInstance = $this->getSecuredClassInstance($class, $securedParameters);
+        $securedInstance = $this->getSecuredClassInstance($class, $alias, $securedParameters);
         $securedClass = new \ReflectionClass($securedInstance);
 
         //Copy the properties
@@ -86,16 +87,16 @@ class GenericSecuredClassFactory implements SecuredClassFactory {
      * 
      * @return $object
      */
-    function getSecuredClassInstance(\ReflectionClass $class, array $securedParameters) {
+    function getSecuredClassInstance(\ReflectionClass $class, $alias, array $securedParameters) {
         
         $namespace = $class->getNamespaceName();
         $name = $class->getName();
-        $securedName = $this->getSecuredName($name);
+        $securedName = $this->getSecuredName($name, $alias);
         
         $fileName = $this->cacheDir.DIRECTORY_SEPARATOR.$securedName.'.php';
         
         if (!file_exists($fileName) || filemtime($fileName)<filemtime($class->getFileName())) {
-            $code = $this->generateCode($class, $securedParameters);
+            $code = $this->generateCode($class, $alias, $securedParameters);
             $this->write($fileName, $code);
         }
         
@@ -106,12 +107,12 @@ class GenericSecuredClassFactory implements SecuredClassFactory {
         return $newReflectionClass->newInstanceArgs();
     }
     
-    function generateCode(\ReflectionClass $class, $securedParameters) {
+    function generateCode(\ReflectionClass $class, $alias, $securedParameters) {
         //TODO revoir génération du code (pardon pour la partie sur les signatures de méthodes)
         
         $namespace = $class->getNamespaceName();
         $name = $class->getName();
-        $securedName = $this->getSecuredName($name);
+        $securedName = $this->getSecuredName($name, $alias);
         
         $fileName = $this->cacheDir.DIRECTORY_SEPARATOR.$securedName.'.php';
         
@@ -214,8 +215,8 @@ class GenericSecuredClassFactory implements SecuredClassFactory {
         return implode(', ', $keyValueArray);
     }
     
-    function getSecuredName($name) {
-        return 'Secured'.md5($name);
+    function getSecuredName($name, $alias) {
+        return 'Secured'.md5($name.$alias);
     }
     
     function generateRandomVarName() {
