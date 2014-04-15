@@ -99,7 +99,7 @@ class GenericSecuredClassFactory implements SecuredClassFactory {
             $this->write($fileName, $code);
         }
         
-        include($fileName);
+        include_once($fileName);
         
         $newReflectionClass = new \ReflectionClass($namespace.'\\'.$securedName);
         

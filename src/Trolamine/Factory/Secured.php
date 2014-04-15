@@ -10,8 +10,8 @@ class Secured {
     const PRE_FILTER = 'preFilter';
     const POST_FILTER = 'postFilter';
     
-    const PREFIX = '#';
-    const RETURN_OBJECT_ALIAS = '#returnObject';
+    const PREFIX = '&';
+    const RETURN_OBJECT_ALIAS = '&returnObject';
     
     /**
      * The associative array of parameters :

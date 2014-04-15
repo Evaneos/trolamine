@@ -114,15 +114,15 @@ Now, you can secure your methods in your DIC-IT config :
                     preAuthorize :
                         0 : { operation : @MethodSecurityExpressionOperations, method : hasRole, args : [ ROLE_ADMIN ] }
                     postAuthorize :
-                        0 : { operation : @MyOperations, method : hasRight, args : [ #returnObject ] }
+                        0 : { operation : @MyOperations, method : hasRight, args : [ &returnObject ] }
                         
 In this example, the method `testMethod1` in class `TestService` has been configured to check if the authenticated user has the `'ROLE_ADMIN'` role before being invoked (to check that, the `hasRole` method of class [`MethodSecurityExpressionRoot`][10] will be called).
 
 If he hasn't, an [`AccessDeniedException`][11] will be thrown. Otherwise, the method will be invoked normally.
 
-After invocation, it will check if the returned object of the invoked method is accessible (by calling the `hasRight` method of the class mapped by the `MyOperations` service). The `#returnObject` keyword will automatically be replaced by the return object value.
+After invocation, it will check if the returned object of the invoked method is accessible (by calling the `hasRight` method of the class mapped by the `MyOperations` service). The `&returnObject` keyword will automatically be replaced by the return object value.
 
-Any param passed to a security operation that begins with the `#` sign will be converted to the value of the corresponding param of the secured method.
+Any param passed to a security operation that begins with the `&` sign will be converted to the value of the corresponding param of the secured method.
 
 
   [1]: https://github.com/Evaneos/pyrite
