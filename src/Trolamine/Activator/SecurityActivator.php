@@ -50,7 +50,7 @@ class SecurityActivator extends AbstractActivatorDecorator {
      * @return array
      */
     protected function getSecurityConfig(Container $container, array &$serviceConfig) {
-        $securityConfig = $serviceConfig['security'];
+        $securityConfig = ParamsResolver::resolveParams($container, $serviceConfig['security']);
         $realSecurityConfig = array();
         
         foreach ($securityConfig as $method=>$triggers) {
