@@ -86,6 +86,13 @@ Then, you can activate the security activator to be able to use the "security" k
             class : Trolamine\Activator\SecurityActivator
             arguments : [ @SecuredClassFactory ]
 
+When setting the container, you'll have to add the declared activator.
+
+	$activator = new \DICIT\ActivatorFactory();
+    $container = new \Evaneos\Pro\Container\DICITAdapter($config, $activator);
+    [...]
+    $activator->addActivator('security', $container->get('SecurityActivator'), false);
+
 After that, you'll be able to declare the operations you want to use for your security rules :
 
     classes :
