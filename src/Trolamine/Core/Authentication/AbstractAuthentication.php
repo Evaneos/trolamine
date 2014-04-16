@@ -31,11 +31,11 @@ abstract class AbstractAuthentication implements Authentication {
     
     /**
      * 
-     * @param object        $user
+     * @param UserDetails   $user
      * @param string        $mode
      * @param array<string> $authorities
      */
-    public function __construct($user, $mode, array $authorities=array()) {
+    public function __construct(UserDetails $user, $mode, array $authorities=array()) {
         $this->user = $user;
         $this->mode = $mode;
         $this->authorities= $authorities;

@@ -30,7 +30,7 @@ interface Authentication {
     /**
      * Returns the authenticated user object
      * 
-     * @return mixed authenticated user
+     * @return UserDetails authenticated user
      */
     function getAuthenticatedUser();
     

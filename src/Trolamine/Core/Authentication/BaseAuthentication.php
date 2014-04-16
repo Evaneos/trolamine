@@ -9,7 +9,7 @@ namespace Trolamine\Core\Authentication;
  */
 class BaseAuthentication extends AbstractAuthentication {
 
-    public function __construct($user, $mode, array $authorities=array()) {
+    public function __construct(UserDetails $user, $mode, array $authorities=array()) {
         parent::__construct($user, $mode, $authorities);
         if ($user instanceof UserDetails) {
             $this->principal = $user->getUsername();

@@ -6,6 +6,7 @@ use Trolamine\Core\Access\AccessDecisionManager;
 use Trolamine\Core\Operation\MethodSecurityExpressionRoot;
 use Trolamine\Core\Exception\InsufficientAuthenticationException;
 use Trolamine\Core\Exception\AccessDeniedException;
+use Trolamine\Core\Access\OperationConfigAttribute;
 
 class SimpleSecurityContext implements SecurityContext {
     
@@ -45,10 +46,10 @@ class SimpleSecurityContext implements SecurityContext {
     
     function hasRole($roleName) {
         $roleOperation = new MethodSecurityExpressionRoot();
-        $roleConfigAttribute = new OperationConfigAttribute($root, 'hasRole', array($roleName));
+        $roleConfigAttribute = new OperationConfigAttribute($roleOperation, 'hasRole', array($roleName));
         
         try {
-            $this->accessDecisionManager->decide($this->authentication, null, $roleConfigAttribute);
+            $this->accessDecisionManager->decide($this->authentication, null, array($roleConfigAttribute));
         } catch (AccessDeniedException $ade) {
             return false;
         }  catch (InsufficientAuthenticationException $ade) {
