@@ -1,10 +1,12 @@
 Trolamine
 =========
-Security and Authentication components for [Pyrite][1].
+Standard Security and Authentication components for PHP 5.3+.
+
+It also provides adapters to simplify its use in [Pyrite][1].
 
 Basics
 -----------------
-Trolamine is a component aimed at providing security and authentication functionalities to Pyrite.
+Trolamine is a component aimed at providing security and authentication functionalities.
 
 To simplify authentication, a Pyrite Layer has been created : [`AuthenticationLayer`][2].
 
