@@ -2,15 +2,16 @@
 namespace Trolamine\Factory;
 
 use Pyrite\Container\Container;
+use Trolamine\Core\SecurityContext;
 
 class GenericSecuredClassFactory implements SecuredClassFactory {
     
     /**
-     * The container
+     * The security context
      *
-     * @var Container
+     * @var SecurityContext
      */
-    private $container;
+    private $securityContext;
     
     /**
      * 
@@ -21,15 +22,11 @@ class GenericSecuredClassFactory implements SecuredClassFactory {
     /**
      * Constructor
      *
-     * @param Container $container
+     * @param SecurityContext $securityContext
      */
-    public function __construct(Container $container) {
-        $this->container = $container;
-        $this->cacheDir = realpath(
-            $this->container->getParameter('root_dir').
-            DIRECTORY_SEPARATOR .
-            $this->container->getParameter('secured_dir')
-        );
+    public function __construct(SecurityContext $securityContext, $cacheDir) {
+        $this->securityContext = $securityContext;
+        $this->cacheDir = realpath($cacheDir);
     }
     
     /**
@@ -38,7 +35,7 @@ class GenericSecuredClassFactory implements SecuredClassFactory {
      */
     function build($instance, $alias, array $securedParameters=array()) {
         $instance = $this->getSecuredInstance($instance, $alias, $securedParameters);
-        $secured = new Secured($this->container->get('SecurityContext'), $securedParameters);
+        $secured = new Secured($this->securityContext, $securedParameters);
         $instance->setSecured($secured);
         
         return $instance;

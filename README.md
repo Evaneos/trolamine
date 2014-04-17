@@ -21,7 +21,7 @@ SecurityContext
 First, you have to declare the SecurityContext in your DIC-IT YML configuration file :
 
     classes :
-        SecurityContext : #this name can't change!
+        SecurityContext :
             class : \Trolamine\Core\SimpleSecurityContext
             singleton : true
             arguments : [ @AccessDecisionManager ]
@@ -42,7 +42,7 @@ Then, you need to declare the Layer :
     classes :
         AuthenticationLayer :
         class : \Trolamine\Layer\AuthenticationLayer
-        arguments  : [ $container, authentication ] #the second argument sets the name of the session var
+        arguments  : [ @SecurityContext, authentication ] #the second argument sets the name of the session var
         
 If you want to manually log a user (or create a controller that retrieves the login parameters and logs the user), you'll have to declare the AuthenticationManager :
 
@@ -80,7 +80,7 @@ Then, you can activate the security activator to be able to use the "security" k
         # Factory
         SecuredClassFactory :
             class : \Trolamine\Factory\GenericSecuredClassFactory
-            arguments : [ $container ]
+            arguments : [ @SecurityContext, %secured_dir ]
             
         SecurityActivator :
             class : Trolamine\Activator\SecurityActivator
@@ -101,11 +101,11 @@ After that, you'll be able to declare the operations you want to use for your se
 
 You can add as much as you want, they just have to implement [`Operation`][8] (you can extend class [`AbstractOperation`][9])
 
-Be careful, using the "security" keyword in your config will result in the generation of a proxy class which will be written in the directory specified by `%root_dir`.`%secured_dir`.
+Be careful, using the "security" keyword in your config will result in the generation of a proxy class which will be written in the directory specified by `%secured_dir`.
 
     parameters :
         root_dir : /path/to/your/application/root/
-        secured_dir : secured/
+        secured_dir : /path/to/your/application/root/secured/
 
 Example
 =======
