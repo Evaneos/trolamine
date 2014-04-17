@@ -2,6 +2,7 @@
 namespace Trolamine\Core\Authentication\Role;
 
 use Trolamine\Core\Authentication\UserDetails;
+
 interface RoleManager {
     
     /**

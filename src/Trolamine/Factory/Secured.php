@@ -3,6 +3,7 @@ namespace Trolamine\Factory;
 
 use Trolamine\Core\SecurityContext;
 use Trolamine\Core\Access\OperationConfigAttribute;
+
 class Secured {
     
     const PRE_AUTHORIZE = 'preAuthorize';

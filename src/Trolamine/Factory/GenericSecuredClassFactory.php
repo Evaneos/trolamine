@@ -1,7 +1,6 @@
 <?php
 namespace Trolamine\Factory;
 
-use Pyrite\Container\Container;
 use Trolamine\Core\SecurityContext;
 
 class GenericSecuredClassFactory implements SecuredClassFactory {

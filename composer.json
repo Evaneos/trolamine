@@ -27,6 +27,10 @@
         "authentication"
     ],
     "repositories": [
+    	{
+	        "type" : "vcs",
+	        "url" : "git@github.com:oliviermadre/dic-it.git"
+        },
         {
             "type" : "vcs",
             "url" : "git@github.com:Evaneos/pyrite.git"
@@ -38,6 +42,7 @@
         }
     },
     "require" : {
+    	"oliviermadre/dic-it": "dev-master",
     	"evaneos/pyrite" : "dev-master"
     },
     "require-dev" : {

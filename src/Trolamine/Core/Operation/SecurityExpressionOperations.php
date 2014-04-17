@@ -3,6 +3,7 @@ namespace Trolamine\Core\Operation;
 
 use Trolamine\Core\Permission\Permission;
 use Trolamine\Core\Authentication\Authentication;
+
 /**
  * Describes the authorized security operations
  * 

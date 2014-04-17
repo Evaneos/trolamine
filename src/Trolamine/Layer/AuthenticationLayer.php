@@ -3,9 +3,11 @@ namespace Trolamine\Layer;
 
 use Pyrite\Layer\AbstractLayer;
 use Pyrite\Response\ResponseBag;
-use Trolamine\Core\Authentication\Authentication;
-use Symfony\Component\HttpFoundation\Request;
 use Pyrite\Container\Container;
+
+use Symfony\Component\HttpFoundation\Request;
+
+use Trolamine\Core\Authentication\Authentication;
 use Trolamine\Core\Authentication\AnonymousAuthenticationToken;
 use Trolamine\Core\SecurityContext;
 

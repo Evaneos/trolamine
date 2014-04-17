@@ -3,9 +3,10 @@ namespace Trolamine\Activator;
 
 use DICIT\Activators\AbstractActivatorDecorator;
 use DICIT\Container;
+use DICIT\Util\ParamsResolver;
+
 use Trolamine\Factory\SecuredClassFactory;
 use Trolamine\Core\Access\OperationConfigAttribute;
-use DICIT\Util\ParamsResolver;
 use Trolamine\Core\Operation\MethodSecurityExpressionRoot;
 
 class SecurityActivator extends AbstractActivatorDecorator {

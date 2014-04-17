@@ -3,6 +3,7 @@ namespace Trolamine\Core\Access;
 
 use Trolamine\Core\Authentication\Authentication;
 use Trolamine\Core\Exception\AccessDeniedException;
+
 /**
  * Simple concrete implementation of  {@link org.springframework.security.access.AccessDecisionManager} that grants access if any
  * <code>AccessDecisionVoter</code> returns an affirmative response.
