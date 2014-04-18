@@ -1,7 +1,8 @@
 <?php
 namespace Trolamine\Factory;
 
-interface SecuredClassFactory {
+interface SecuredClassFactory
+{
     
     /**
      * The factory method
@@ -20,5 +21,4 @@ interface SecuredClassFactory {
      * @return mixed  the secured class instance which extends the class passed in parameters
      */
     function build($instance, $alias, array $securedParameters=array());
-    
 }

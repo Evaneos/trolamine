@@ -3,7 +3,8 @@ namespace Trolamine\Factory;
 
 use Trolamine\Core\SecurityContext;
 
-class GenericSecuredClassFactory implements SecuredClassFactory {
+class GenericSecuredClassFactory implements SecuredClassFactory
+{
     
     /**
      * The security context
@@ -104,7 +105,6 @@ class GenericSecuredClassFactory implements SecuredClassFactory {
     }
     
     function generateCode(\ReflectionClass $class, $alias, $securedParameters) {
-        //TODO revoir génération du code (pardon pour la partie sur les signatures de méthodes)
         
         $namespace = $class->getNamespaceName();
         $name = $class->getName();
@@ -222,5 +222,4 @@ class GenericSecuredClassFactory implements SecuredClassFactory {
         }
         return $str;
     }
-    
 }

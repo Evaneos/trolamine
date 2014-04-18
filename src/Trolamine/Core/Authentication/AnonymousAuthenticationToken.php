@@ -1,7 +1,8 @@
 <?php
 namespace Trolamine\Core\Authentication;
 
-class AnonymousAuthenticationToken extends AbstractAuthentication {
+class AnonymousAuthenticationToken extends AbstractAuthentication
+{
         
     /**
      * This constructor can be safely used by any code that wishes to create a

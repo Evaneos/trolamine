@@ -8,7 +8,8 @@ use Trolamine\Core\Exception\InsufficientAuthenticationException;
 use Trolamine\Core\Exception\AccessDeniedException;
 use Trolamine\Core\Access\OperationConfigAttribute;
 
-class SimpleSecurityContext implements SecurityContext {
+class SimpleSecurityContext implements SecurityContext
+{
     
     /**
      * 
@@ -60,5 +61,4 @@ class SimpleSecurityContext implements SecurityContext {
         
         return true;
     }
-    
 }

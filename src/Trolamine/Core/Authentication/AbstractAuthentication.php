@@ -7,8 +7,8 @@ namespace Trolamine\Core\Authentication;
  * @author Remi
  *
  */
-abstract class AbstractAuthentication implements Authentication {
-    
+abstract class AbstractAuthentication implements Authentication
+{
     
     protected $user;
     

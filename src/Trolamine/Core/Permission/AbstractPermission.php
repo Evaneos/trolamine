@@ -6,7 +6,8 @@ namespace Trolamine\Core\Permission;
  * 
  * @author Remi
  */
-abstract class AbstractPermission implements Permission{
+abstract class AbstractPermission implements Permission
+{
     
     /**
      * @var int

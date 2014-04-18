@@ -11,17 +11,14 @@ use Trolamine\Core\Exception\AccessDeniedException;
  * "Consensus" here means majority-rule (ignoring abstains) rather than unanimous agreement (ignoring abstains).
  * If you require unanimity, please see {@link UnanimousBased}.
  */
-class ConsensusBased extends AbstractAccessDecisionManager {
+class ConsensusBased extends AbstractAccessDecisionManager
+{
 
     /**
      * 
      * @var string
      */
     private $allowIfEqualGrantedDeniedDecisions = true;
-    
-    public function __construct(array $decisionVoters) {
-        parent::__construct($decisionVoters);
-    }
 
     /**
      * This concrete implementation simply polls all configured  {@link AccessDecisionVoter}s and upon
@@ -69,14 +66,14 @@ class ConsensusBased extends AbstractAccessDecisionManager {
         }
 
         if ($deny > $grant) {
-            throw new AccessDeniedException(AbstractAccessDecisionManager::accessDenied);
+            throw new AccessDeniedException(AbstractAccessDecisionManager::ACCESSDENIED);
         }
 
         if (($grant == $deny) && ($grant != 0)) {
             if ($this->allowIfEqualGrantedDeniedDecisions) {
                 return;
             } else {
-                throw new AccessDeniedException(AbstractAccessDecisionManager::accessDenied);
+                throw new AccessDeniedException(AbstractAccessDecisionManager::ACCESSDENIED);
             }
         }
 

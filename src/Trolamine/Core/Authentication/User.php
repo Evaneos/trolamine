@@ -4,7 +4,8 @@ namespace Trolamine\Core\Authentication;
 /**
  * A base user implementing UserDetails
  */
-class User implements UserDetails {
+class User implements UserDetails
+{
     
     private $user;
     private $username;

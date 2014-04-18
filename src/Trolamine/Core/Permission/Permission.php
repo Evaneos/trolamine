@@ -6,7 +6,8 @@ namespace Trolamine\Core\Permission;
  * 
  * @author Remi
  */
-interface Permission {
+interface Permission
+{
     
     /**
      * Returns the bits that represents the permission.
@@ -49,5 +50,4 @@ interface Permission {
      * @return boolean
      */
     function contains($obj);
-    
 }

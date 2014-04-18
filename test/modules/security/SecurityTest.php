@@ -12,7 +12,8 @@ use Trolamine\Core\Access\AffirmativeBased;
 use Trolamine\Factory\Secured;
 use Trolamine\Core\SimpleSecurityContext;
 
-class SecurityTest extends PHPUnit_Framework_TestCase {
+class SecurityTest extends PHPUnit_Framework_TestCase
+{
     
     private $authentication = null;
     private $root = null;
@@ -222,7 +223,7 @@ class SecurityTest extends PHPUnit_Framework_TestCase {
         $securityContext = new SimpleSecurityContext(new UnanimousBased(array($this->voter)));
         $securityContext->setAuthentication($this->authentication);
         $secured = new Secured($securityContext, $config);
-        $secured->preAuthorize();
+        $secured->preAuthorize('nestedCall');
     }
     
     public function testSecuredSuccess() {

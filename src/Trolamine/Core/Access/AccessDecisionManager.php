@@ -8,7 +8,8 @@ use Trolamine\Core\Exception\InsufficientAuthenticationException;
 /**
  * Makes a final access control (authorization) decision.
  */
-interface AccessDecisionManager {
+interface AccessDecisionManager
+{
     
     /**
      * Resolves an access control decision for the passed parameters.

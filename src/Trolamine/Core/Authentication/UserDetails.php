@@ -16,7 +16,8 @@ namespace Trolamine\Core\Authentication;
  *
  * @see \Trolamine\Core\Authentication\UserDetailsService
  */
-interface UserDetails {
+interface UserDetails
+{
     
     /**
      * Returns the encapsulated user object

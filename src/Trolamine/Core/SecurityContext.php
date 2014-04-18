@@ -4,7 +4,8 @@ namespace Trolamine\Core;
 use Trolamine\Core\Authentication\Authentication;
 use Trolamine\Core\Access\AccessDecisionManager;
 
-interface SecurityContext {
+interface SecurityContext
+{
     
     /**
      * Authentication setter

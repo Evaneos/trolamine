@@ -11,9 +11,10 @@ use Trolamine\Core\Exception\AccessDeniedException;
  * abstain from voting (defaults to deny access).
  * </p>
  */
-abstract class AbstractAccessDecisionManager implements AccessDecisionManager {
+abstract class AbstractAccessDecisionManager implements AccessDecisionManager
+{
 
-    const accessDenied = 'Access Denied!';
+    const ACCESSDENIED = 'Access Denied!';
     
     /**
      * 
@@ -33,7 +34,7 @@ abstract class AbstractAccessDecisionManager implements AccessDecisionManager {
 
     protected function checkAllowIfAllAbstainDecisions() {
         if (!$this->isAllowIfAllAbstainDecisions()) {
-            throw new AccessDeniedException(self::accessDenied);
+            throw new AccessDeniedException(self::ACCESSDENIED);
         }
     }
 

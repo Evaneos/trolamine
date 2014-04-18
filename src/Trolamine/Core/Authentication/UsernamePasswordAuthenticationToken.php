@@ -1,7 +1,8 @@
 <?php
 namespace Trolamine\Core\Authentication;
 
-class UsernamePasswordAuthenticationToken extends AbstractAuthentication {
+class UsernamePasswordAuthenticationToken extends AbstractAuthentication
+{
         
     /**
      * This constructor can be safely used by any code that wishes to create a

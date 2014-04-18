@@ -3,7 +3,8 @@ namespace Trolamine\Core\Permission;
 
 use Trolamine\Core\Authentication\Authentication;
 
-interface PermissionEvaluator {
+interface PermissionEvaluator
+{
     
     /**
      * Evaluates the permission for the authenticated user on the object passed in parameter
@@ -17,5 +18,4 @@ interface PermissionEvaluator {
      * @return boolean        true if the permission is granted, false otherwise
      */
     function hasPermission(Authentication $authentication, $targetDomainObject, Permission $permission);
-    
 }

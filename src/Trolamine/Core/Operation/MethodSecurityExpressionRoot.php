@@ -3,19 +3,12 @@ namespace Trolamine\Core\Operation;
 
 use Trolamine\Core\Authentication\Authentication;
 
-class MethodSecurityExpressionRoot extends SecurityExpressionRoot implements MethodSecurityExpressionOperations {
+class MethodSecurityExpressionRoot extends SecurityExpressionRoot implements MethodSecurityExpressionOperations
+{
     
     private $filterObject;
     private $returnObject;
     private $target;
-
-    /**
-     * 
-     * @param Authentication $a
-     */
-    public function __construct(Authentication $a=null) {
-        parent::__construct($a);
-    }
 
     /**
      * (non-PHPdoc)
@@ -67,4 +60,3 @@ class MethodSecurityExpressionRoot extends SecurityExpressionRoot implements Met
         return $this->target;
     }
 }
-

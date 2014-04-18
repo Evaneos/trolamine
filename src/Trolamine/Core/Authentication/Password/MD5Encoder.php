@@ -1,7 +1,8 @@
 <?php
 namespace Trolamine\Core\Authentication\Password;
 
-class MD5Encoder implements PasswordEncoder {
+class MD5Encoder implements PasswordEncoder
+{
     
     /**
      * 
@@ -10,6 +11,5 @@ class MD5Encoder implements PasswordEncoder {
      */
     function encodePassword($password) {
         return md5($password);
-    }
-    
+    }    
 }

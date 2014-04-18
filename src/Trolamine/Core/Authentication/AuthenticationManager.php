@@ -1,7 +1,8 @@
 <?php
 namespace Trolamine\Core\Authentication;
 
-interface AuthenticationManager {
+interface AuthenticationManager
+{
     
     /**
      * Attempts to authenticate the passed {@link Authentication} object, returning a fully populated

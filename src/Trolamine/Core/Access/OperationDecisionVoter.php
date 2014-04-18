@@ -3,7 +3,8 @@ namespace Trolamine\Core\Access;
 
 use Trolamine\Core\Authentication\Authentication;
 
-class OperationDecisionVoter implements AccessDecisionVoter{
+class OperationDecisionVoter implements AccessDecisionVoter
+{
     
     /**
      * (non-PHPdoc)

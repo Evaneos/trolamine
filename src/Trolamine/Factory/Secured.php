@@ -4,7 +4,8 @@ namespace Trolamine\Factory;
 use Trolamine\Core\SecurityContext;
 use Trolamine\Core\Access\OperationConfigAttribute;
 
-class Secured {
+class Secured
+{
     
     const PRE_AUTHORIZE = 'preAuthorize';
     const POST_AUTHORIZE = 'postAuthorize';
@@ -118,5 +119,4 @@ class Secured {
     public function postAuthorize($method, array $parameters=array(), $response) {
         $this->check($method, $parameters, self::POST_AUTHORIZE, $response);
     }
-    
 }

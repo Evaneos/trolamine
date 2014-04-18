@@ -9,7 +9,8 @@ use Trolamine\Factory\SecuredClassFactory;
 use Trolamine\Core\Access\OperationConfigAttribute;
 use Trolamine\Core\Operation\MethodSecurityExpressionRoot;
 
-class SecurityActivator extends AbstractActivatorDecorator {
+class SecurityActivator extends AbstractActivatorDecorator
+{
 
     /**
      * 
@@ -83,5 +84,4 @@ class SecurityActivator extends AbstractActivatorDecorator {
         
         return $realSecurityConfig;
     }
-    
 }

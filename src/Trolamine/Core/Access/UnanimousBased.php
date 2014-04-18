@@ -8,11 +8,8 @@ use Trolamine\Core\Exception\AccessDeniedException;
  * Simple concrete implementation of  {@link org.springframework.security.access.AccessDecisionManager} that requires all
  * voters to abstain or grant access.
  */
-class UnanimousBased extends AbstractAccessDecisionManager {
-    
-    public function __construct(array $decisionVoters) {
-        parent::__construct($decisionVoters);
-    }
+class UnanimousBased extends AbstractAccessDecisionManager
+{
 
     /**
      * This concrete implementation polls all configured  {@link AccessDecisionVoter}s for each {@link
@@ -50,7 +47,7 @@ class UnanimousBased extends AbstractAccessDecisionManager {
                         break;
     
                     case AccessDecisionVoter::ACCESS_DENIED:
-                        throw new AccessDeniedException(AbstractAccessDecisionManager::accessDenied);
+                        throw new AccessDeniedException(AbstractAccessDecisionManager::ACCESSDENIED);
     
                     default:
                         break;

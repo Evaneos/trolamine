@@ -5,7 +5,8 @@ use \Trolamine\Core\Permission\Permission;
 use \Trolamine\Core\Permission\PermissionEvaluator;
 use \Trolamine\Core\Authentication\Authentication;
 
-class SecurityExpressionRoot extends AbstractOperation implements SecurityExpressionOperations{
+class SecurityExpressionRoot extends AbstractOperation implements SecurityExpressionOperations
+{
     
     /**
      * The permission evaluator

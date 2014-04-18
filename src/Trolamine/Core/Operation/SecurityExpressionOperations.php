@@ -10,7 +10,8 @@ use Trolamine\Core\Authentication\Authentication;
  * @author Remi
  *
  */
-interface SecurityExpressionOperations extends Operation {
+interface SecurityExpressionOperations extends Operation
+{
     
     /**
      * Determines if the {@link #getAuthentication()} has a particular authority within {@link Authentication#getAuthorities()}. This is a synonym for {@link #hasAuthority(String)}.

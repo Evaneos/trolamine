@@ -3,7 +3,8 @@ namespace Trolamine\Core\Operation;
 
 use Trolamine\Core\Authentication\Authentication;
 
-interface Operation{
+interface Operation
+{
     
     /**
      * Sets the {@link Authentication} used for evaluating the expressions

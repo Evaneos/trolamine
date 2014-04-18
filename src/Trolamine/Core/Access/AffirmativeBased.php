@@ -8,11 +8,8 @@ use Trolamine\Core\Exception\AccessDeniedException;
  * Simple concrete implementation of  {@link org.springframework.security.access.AccessDecisionManager} that grants access if any
  * <code>AccessDecisionVoter</code> returns an affirmative response.
  */
-class AffirmativeBased extends AbstractAccessDecisionManager {
-
-    public function __construct(array $decisionVoters) {
-        parent::__construct($decisionVoters);
-    }
+class AffirmativeBased extends AbstractAccessDecisionManager
+{
 
     /**
      * This concrete implementation simply polls all configured  {@link AccessDecisionVoter}s and grants access
@@ -49,7 +46,7 @@ class AffirmativeBased extends AbstractAccessDecisionManager {
         }
 
         if (deny > 0) {
-            throw new AccessDeniedException(AbstractAccessDecisionManager::accessDenied);
+            throw new AccessDeniedException(AbstractAccessDecisionManager::ACCESSDENIED);
         }
 
         // To get this far, every AccessDecisionVoter abstained

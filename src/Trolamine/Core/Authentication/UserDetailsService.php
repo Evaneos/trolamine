@@ -1,7 +1,8 @@
 <?php
 namespace Trolamine\Core\Authentication;
 
-interface UserDetailsService {
+interface UserDetailsService
+{
     
     /**
      * Locates the user based on the username. In the actual implementation, the search may possibly be case

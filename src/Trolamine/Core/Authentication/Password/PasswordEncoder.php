@@ -1,7 +1,8 @@
 <?php
 namespace Trolamine\Core\Authentication\Password;
 
-interface PasswordEncoder {
+interface PasswordEncoder
+{
     
     /**
      * Encodes the given password
@@ -11,5 +12,4 @@ interface PasswordEncoder {
      * @return string the encoded password
      */
     function encodePassword($password);
-    
 }

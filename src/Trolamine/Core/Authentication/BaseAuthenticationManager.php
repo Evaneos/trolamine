@@ -7,7 +7,8 @@ use Trolamine\Core\Authentication\Password\PasswordEncoder;
 use Trolamine\Core\Exception\BadCredentialsException;
 use Trolamine\Core\Authentication\Role\RoleManager;
 
-class BaseAuthenticationManager implements AuthenticationManager {
+class BaseAuthenticationManager implements AuthenticationManager
+{
     
     /**
      * 

@@ -1,7 +1,8 @@
 <?php
 namespace Trolamine\Core\Operation;
 
-interface MethodSecurityExpressionOperations extends SecurityExpressionOperations {
+interface MethodSecurityExpressionOperations extends SecurityExpressionOperations
+{
     
     function setFilterObject($filterObject);
 

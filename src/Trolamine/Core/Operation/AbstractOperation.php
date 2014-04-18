@@ -5,7 +5,8 @@ use \Trolamine\Core\Permission\Permission;
 use \Trolamine\Core\Permission\PermissionEvaluator;
 use \Trolamine\Core\Authentication\Authentication;
 
-abstract class AbstractOperation implements Operation {
+abstract class AbstractOperation implements Operation
+{
 
     /**
      * The authentication object
@@ -33,5 +34,4 @@ abstract class AbstractOperation implements Operation {
     public function getAuthentication(){
         return $this->authentication;
     }
-
 }

@@ -7,7 +7,8 @@ namespace Trolamine\Core\Authentication;
  * @author Remi
  *
  */
-interface Authentication {
+interface Authentication
+{
     
     const ANONYMOUS = 0;
     const REMEMBER_ME = 1;
@@ -47,5 +48,4 @@ interface Authentication {
      * @return array
      */
     function getAuthorities();
-    
 }

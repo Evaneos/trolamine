@@ -3,7 +3,8 @@ namespace Trolamine\Core\Access;
 
 use Trolamine\Core\Operation\Operation;
 
-class OperationConfigAttribute {
+class OperationConfigAttribute
+{
     
     /**
      * 
@@ -33,6 +34,5 @@ class OperationConfigAttribute {
         $this->root = $root;
         $this->method = $method;
         $this->args = $args;
-    }
-    
+    }    
 }

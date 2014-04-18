@@ -7,7 +7,8 @@ namespace Trolamine\Core\Authentication;
  * @author Remi
  *
  */
-class BaseAuthentication extends AbstractAuthentication {
+class BaseAuthentication extends AbstractAuthentication
+{
 
     public function __construct(UserDetails $user=null, $mode, array $authorities=array()) {
         parent::__construct($user, $mode, $authorities);

@@ -3,7 +3,8 @@ namespace Trolamine\Core\Authentication\Role;
 
 use Trolamine\Core\Authentication\UserDetails;
 
-interface RoleManager {
+interface RoleManager
+{
     
     /**
      * 
@@ -12,5 +13,4 @@ interface RoleManager {
      * @return array the array of roles
      */
     function getRoles(UserDetails $userDetails);
-    
 }

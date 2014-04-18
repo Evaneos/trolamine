@@ -3,7 +3,8 @@ namespace Trolamine\Core\Access;
 
 use Trolamine\Core\Authentication\Authentication;
 
-class OperationsUtil {
+class OperationsUtil
+{
     
     /**
      * Evaluates the operation
@@ -17,5 +18,4 @@ class OperationsUtil {
         $root->setAuthentication($authentication);
         return call_user_func_array(array($root, $attribute->method), $attribute->args);
     }
-    
 }

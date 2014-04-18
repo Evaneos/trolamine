@@ -11,7 +11,8 @@ use Trolamine\Core\Authentication\Authentication;
 use Trolamine\Core\Authentication\AnonymousAuthenticationToken;
 use Trolamine\Core\SecurityContext;
 
-class AuthenticationLayer extends AbstractLayer {
+class AuthenticationLayer extends AbstractLayer
+{
     
     /**
      * The authentication var name in the ResponseBag
@@ -90,5 +91,4 @@ class AuthenticationLayer extends AbstractLayer {
         $request = $this->request;
         $request->getSession()->set(self::$sessionVarName, $authentication);
     }
-    
 }

@@ -10,7 +10,8 @@ use Trolamine\Core\Authentication\Authentication;
  * tallying their responses, and making the final authorization decision) is
  * performed by an {@link AccessDecisionManager}.
  */
-interface AccessDecisionVoter {
+interface AccessDecisionVoter
+{
     
     const ACCESS_GRANTED = 1;
     const ACCESS_ABSTAIN = 0;

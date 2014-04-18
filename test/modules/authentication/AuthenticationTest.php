@@ -5,7 +5,8 @@ use Trolamine\Core\Authentication\Password\MD5Encoder;
 use Trolamine\Core\Authentication\UserDetailsService;
 use Trolamine\Core\Authentication\BaseAuthenticationManager;
 use Trolamine\Core\Authentication\UsernamePasswordAuthenticationToken;
-class AuthenticationTest extends PHPUnit_Framework_TestCase {
+class AuthenticationTest extends PHPUnit_Framework_TestCase
+{
     
     private $passwordEncoder;
     
