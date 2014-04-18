@@ -8,7 +8,7 @@
          stopOnFailure="false">
 	<testsuites>
 		<testsuite name="All">
-			<directory suffix=".php">./tests/unit/</directory>
+			<directory suffix=".php">./test/</directory>
 		</testsuite>
 	</testsuites>
 	<logging>
