@@ -141,7 +141,7 @@ class GenericSecuredClassFactory implements SecuredClassFactory
                         $type = $typeClass->name;
                     
                         if ($type != null) {
-                            $uses[] = 'use '.$type.';';
+                            $uses[$type] = 'use '.$type.';';
                         }
                     }
         
