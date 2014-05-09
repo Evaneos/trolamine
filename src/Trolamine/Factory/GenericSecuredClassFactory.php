@@ -169,7 +169,9 @@ class GenericSecuredClassFactory implements SecuredClassFactory
                 $methodContent .= '    '.$signature."\n";
                 $methodContent .= '        $'.$paramsVar.' = array('.$this->getParamsArrayAsString($params).');'."\n";
                 $methodContent .= '        $this->secured->preAuthorize(\''.$methodName.'\', $'.$paramsVar.');'."\n";
+                $methodContent .= '        $'.$paramsVar.' = $this->secured->preFilter(\''.$methodName.'\', $'.$paramsVar.');'."\n";
                 $methodContent .= '        $'.$resultVar.' = parent::'.$methodName.'('.implode(', ', $params).');'."\n";
+                $methodContent .= '        $'.$resultVar.' = $this->secured->postFilter(\''.$methodName.'\', $'.$paramsVar.', $'.$resultVar.');'."\n";
                 $methodContent .= '        $this->secured->postAuthorize(\''.$methodName.'\', $'.$paramsVar.', $'.$resultVar.');'."\n";
                 $methodContent .= '        return $'.$resultVar.';'."\n";
                 $methodContent .= '    }'."\n";

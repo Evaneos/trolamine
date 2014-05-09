@@ -136,4 +136,22 @@ class Secured
     public function postAuthorize($method, array $parameters=array(), $response) {
         $this->check($method, $parameters, self::POST_AUTHORIZE, $response);
     }
+    
+    /**
+     * The PreFilter method to be called before the real method call
+     */
+    public function preFilter($method, array $parameters=array()) {
+        //TODO modify the parameters
+        return $parameters;
+    }
+    
+    /**
+     * The PostFilter method to be called after the real method has returned a value
+     *
+     * @param mixed $response the response of the method to secure
+     */
+    public function postFilter($method, array $parameters=array(), $response) {
+        //TODO modify the response
+        return $response;
+    }
 }
