@@ -115,7 +115,21 @@ class GenericSecuredClassFactory implements SecuredClassFactory
         $methodsArray = array();
         $uses = array();
         
-        foreach ($securedParameters as $methodName=>$parameters) {
+        $methodNames = array();
+        if(array_key_exists(Secured::ALL, $securedParameters)) {
+            $methods = $class->getMethods();
+            foreach ($methods as $method) {
+                /* @var $method \ReflectionMethod */
+                $methodName = $method->getName();
+                if(strpos($methodName, '__') !== 0) {
+                    $methodNames[] = $methodName;
+                }
+            }
+        } else {
+            $methodNames = array_keys($securedParameters);
+        }
+        
+        foreach ($methodNames as $methodName) {
             if ($class->hasMethod($methodName)) {
                 /* @var $method \ReflectionMethod */
                 $method = $class->getMethod($methodName);

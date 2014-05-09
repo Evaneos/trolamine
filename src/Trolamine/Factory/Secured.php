@@ -12,6 +12,8 @@ class Secured
     const PRE_FILTER = 'preFilter';
     const POST_FILTER = 'postFilter';
     
+    const ALL = '*';
+    
     const PREFIX = '&';
     const RETURN_OBJECT_ALIAS = '&returnObject';
     
@@ -66,6 +68,20 @@ class Secured
         return $newArgs;
     }
     
+    private function addChecks($checks, $key, $actionName) {
+        if (array_key_exists($key, $this->config)) {
+            $actions = $this->config[$key];
+            if (is_array($actions) && count($actions)>0 && array_key_exists($actionName,  $actions)) {
+                $localChecks = $actions[$actionName];
+                
+                if (is_array($localChecks) && count($localChecks)>0) {
+                    $checks = array_merge($checks, $localChecks);
+                }
+            }
+        }
+        return $checks;
+    }
+    
     /**
      * Retrieves the conditions to check and checks them
      * 
@@ -77,29 +93,30 @@ class Secured
     protected function check($method, array $parameters, $actionName, $object=null) {
         $methodName = $method;
         
-        if (is_array($this->config) && count($this->config)>0 && array_key_exists($methodName, $this->config)) {
-            $actions = $this->config[$methodName];
-            if (is_array($actions) && count($actions)>0 && array_key_exists($actionName,  $actions)) {
-                $checks = $actions[$actionName];
-                if (is_array($checks) && count($checks)>0) {
+        if (is_array($this->config) && count($this->config)>0 && (array_key_exists(self::ALL, $this->config) || array_key_exists($methodName, $this->config))) {
+            
+            $checks = array();
+            $checks = $this->addChecks($checks, self::ALL, $actionName);
+            $checks = $this->addChecks($checks, $methodName, $actionName);
+            
+            if (is_array($checks) && count($checks)>0) {
+                
+                //replace the ref args by the real value
+                $newChecks= array();
+                foreach ($checks as $check) {
+                    /* @var $check OperationConfigAttribute */
+                    $args = $this->getParametersByRealValues($check->args, $parameters, $object);
                     
-                    //replace the ref args by the real value
-                    $newChecks= array();
-                    foreach ($checks as $check) {
-                        /* @var $check OperationConfigAttribute */
-                        $args = $this->getParametersByRealValues($check->args, $parameters, $object);
-                        
-                        $newCheck = clone $check;
-                        $newCheck->args = $args;
-                        $newChecks[] = $newCheck;
-                    }
-                    
-                    $this->securityContext->getAccessDecisionManager()->decide(
-                        $this->securityContext->getAuthentication(),
-                        $object,
-                        $newChecks
-                    );
+                    $newCheck = clone $check;
+                    $newCheck->args = $args;
+                    $newChecks[] = $newCheck;
                 }
+                
+                $this->securityContext->getAccessDecisionManager()->decide(
+                    $this->securityContext->getAuthentication(),
+                    $object,
+                    $newChecks
+                );
             }
         }
     }
