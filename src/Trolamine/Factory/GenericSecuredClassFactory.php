@@ -139,13 +139,21 @@ class GenericSecuredClassFactory implements SecuredClassFactory
                 /* @var $method \ReflectionMethod */
                 $method = $class->getMethod($methodName);
 
-                if (
-                    $method->isConstructor() ||
-                    isset($skippedMethods[strtolower($name)]) ||
+                if ($method->isConstructor() ||
+                    isset($skippedMethods[strtolower($methodName)]) ||
                     $method->isFinal() ||
                     ( ! $method->isPublic())
                 ) {
-                    // TODO Throw exception
+                    // TODO Use a better exception class
+                    throw new \LogicException(
+                        vsprintf(
+                            'Method %s::%s cannot be secured : magic, final or non-public methods are not allowed',
+                            array(
+                                $class->getName(),
+                                $methodName
+                            )
+                        )
+                    );
                 }
 
                 //Method Parameters
@@ -184,10 +192,7 @@ class GenericSecuredClassFactory implements SecuredClassFactory
                     $paramsSignature[] = $paramString;
                 }
 
-                $signature = "/**\n"
-                . "     * {@inheritDoc}\n"
-                . "     */\n"
-                . '    public ';
+                $signature = "/**\n     * {@inheritDoc}\n     */\n    public ";
 
                 if ($method->isStatic()) {
                     $signature .= 'static ';
@@ -199,7 +204,7 @@ class GenericSecuredClassFactory implements SecuredClassFactory
                     $signature .= '&';
                 }
 
-                $signature .= $method->getName() . '(' .implode(', ', $paramsSignature).')';
+                $signature .= $methodName . '(' .implode(', ', $paramsSignature).')';
 
                 //Code generation
                 $resultVar = $this->generateRandomVarName();
