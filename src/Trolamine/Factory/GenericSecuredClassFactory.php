@@ -126,7 +126,7 @@ class GenericSecuredClassFactory implements SecuredClassFactory
             foreach ($methods as $method) {
                 /* @var $method \ReflectionMethod */
                 $methodName = $method->getName();
-                if(strpos($methodName, '__') !== 0 || in_array($methodName, $skippedMethods)) {
+                if(strpos($methodName, '__') !== 0 && !array_key_exists($methodName, $skippedMethods)) {
                     $methodNames[] = $methodName;
                 }
             }
