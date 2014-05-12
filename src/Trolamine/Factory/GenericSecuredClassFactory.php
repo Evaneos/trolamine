@@ -116,17 +116,17 @@ class GenericSecuredClassFactory implements SecuredClassFactory
             '__wakeup' => true,
             '__get' => true,
             '__set' => true,
-            '__isset' => true,
+            '__isset' => true
         );
         $methodsArray = array();
 
         $methodNames = array();
         if(array_key_exists(Secured::ALL, $securedParameters)) {
-            $methods = $class->getMethods(\ReflectionMethod::IS_PUBLIC);
+            $methods = $class->getMethods();
             foreach ($methods as $method) {
                 /* @var $method \ReflectionMethod */
                 $methodName = $method->getName();
-                if(strpos($methodName, '__') !== 0) {
+                if(strpos($methodName, '__') !== 0 || in_array($methodName, $skippedMethods)) {
                     $methodNames[] = $methodName;
                 }
             }
@@ -142,7 +142,7 @@ class GenericSecuredClassFactory implements SecuredClassFactory
                 if ($method->isConstructor() ||
                     isset($skippedMethods[strtolower($methodName)]) ||
                     $method->isFinal() ||
-                    ( ! $method->isPublic())
+                    $method->isPrivate()
                 ) {
                     // TODO Use a better exception class
                     throw new \LogicException(
@@ -192,7 +192,13 @@ class GenericSecuredClassFactory implements SecuredClassFactory
                     $paramsSignature[] = $paramString;
                 }
 
-                $signature = "/**\n     * {@inheritDoc}\n     */\n    public ";
+                $signature = "/**\n     * {@inheritDoc}\n     */\n    ";
+                
+                if ($method->isPublic()) {
+                    $signature .= 'public ';
+                } else if ($method->isProtected()) {
+                    $signature .= 'protected ';
+                }
 
                 if ($method->isStatic()) {
                     $signature .= 'static ';
@@ -204,9 +210,10 @@ class GenericSecuredClassFactory implements SecuredClassFactory
                     $signature .= '&';
                 }
 
-                $signature .= $methodName . '(' .implode(', ', $paramsSignature).')';
+                $signature .= $methodName . '(' .implode(', ', $paramsSignature).') {';
 
                 //Code generation
+                //TODO generalize secured
                 $resultVar = $this->generateRandomVarName();
                 $paramsVar = $this->generateRandomVarName();
                 $methodContent  = "\n";
@@ -236,6 +243,7 @@ class GenericSecuredClassFactory implements SecuredClassFactory
         $classContent .= "\n";
 
         //member variables
+        //TODO generalize
         $classContent .= '    private $secured;'."\n";
         $classContent .= "\n";
 
@@ -244,6 +252,7 @@ class GenericSecuredClassFactory implements SecuredClassFactory
         $classContent .= "\n";
 
         //Secured variable setter
+        //TODO generalize
         $classContent .= '    public function setSecured(\\Trolamine\\Factory\\Secured $secured) {'."\n";
         $classContent .= '        $this->secured = $secured;'."\n";
         $classContent .= '    }'."\n";
