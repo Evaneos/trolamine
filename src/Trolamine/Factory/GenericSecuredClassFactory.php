@@ -126,7 +126,14 @@ class GenericSecuredClassFactory implements SecuredClassFactory
             foreach ($methods as $method) {
                 /* @var $method \ReflectionMethod */
                 $methodName = $method->getName();
-                if(strpos($methodName, '__') !== 0 && !array_key_exists($methodName, $skippedMethods)) {
+                //We don't secure constructors, magic, final or private methods
+                if(
+                    !$method->isConstructor() &&
+                    !$method->isFinal() &&
+                    !$method->isPrivate() &&
+                    strpos($methodName, '__') !== 0 &&
+                    !array_key_exists($methodName, $skippedMethods)
+                ) {
                     $methodNames[] = $methodName;
                 }
             }
@@ -147,7 +154,7 @@ class GenericSecuredClassFactory implements SecuredClassFactory
                     // TODO Use a better exception class
                     throw new \LogicException(
                         vsprintf(
-                            'Method %s::%s cannot be secured : magic, final or non-public methods are not allowed',
+                            'Method %s::%s cannot be secured : magic, final or private methods are not allowed',
                             array(
                                 $class->getName(),
                                 $methodName
