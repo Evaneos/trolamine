@@ -6,18 +6,19 @@ namespace Trolamine\Core\Authentication;
  */
 class User implements UserDetails
 {
-    
+
     private $user;
     private $username;
     private $password;
+    private $salt;
     private $accountNonExpired;
     private $accountNonLocked;
     private $credentialsNonExpired;
     private $enabled;
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param string  $user
      * @param string  $username
      * @param string  $password
@@ -35,7 +36,7 @@ class User implements UserDetails
         $this->credentialsNonExpired = $credentialsNonExpired;
         $this->enabled = $enabled;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication\UserDetails::getUser()
@@ -43,13 +44,21 @@ class User implements UserDetails
     function getUser() {
         return $this->user;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication\UserDetails::getPassword()
      */
     function getPassword() {
         return $this->password;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \Trolamine\Core\Authentication\UserDetails::getSalt()
+     */
+    function getSalt() {
+        return $this->salt;
     }
 
     /**
