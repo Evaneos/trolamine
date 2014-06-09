@@ -10,7 +10,6 @@ class User implements UserDetails
     private $user;
     private $username;
     private $password;
-    private $password;
     private $salt;
     private $accountNonExpired;
     private $accountNonLocked;
