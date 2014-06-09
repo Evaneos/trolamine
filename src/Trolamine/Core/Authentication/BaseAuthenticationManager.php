@@ -9,28 +9,28 @@ use Trolamine\Core\Authentication\Role\RoleManager;
 
 class BaseAuthenticationManager implements AuthenticationManager
 {
-    
+
     /**
-     * 
+     *
      * @var UserDetailsService
      */
     protected $userDetailsService;
-    
+
     /**
      *
      * @var PasswordEncoder
      */
     protected $passwordEncoder;
-    
+
     /**
      *
      * @var RoleManager
      */
     protected $roleManager;
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param UserDetailsService $userDetailsService
      */
     public function __construct(
@@ -41,7 +41,7 @@ class BaseAuthenticationManager implements AuthenticationManager
         $this->passwordEncoder = $passwordEncoder;
         $this->roleManager = $roleManager;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication\AuthenticationManager::authenticate()
@@ -50,52 +50,52 @@ class BaseAuthenticationManager implements AuthenticationManager
         if ($this->userDetailsService == null) {
             throw \RuntimeException('You have to declare a UserDetailsService.');
         }
-        
+
         $userDetails = $this->userDetailsService->loadUserByUsername($authentication->getPrincipal());
-        
+
         if (!$userDetails->isAccountNonExpired() || !$userDetails->isCredentialsNonExpired() || !$userDetails->isEnabled()) {
             throw new DisabledException();
         }
-        
+
         if (!$userDetails->isAccountNonLocked()) {
             throw new LockedException();
         }
-        
+
         $credentials = $authentication->getCredentials();
         if ($this->passwordEncoder != null) {
-            $credentials = $this->passwordEncoder->encodePassword($credentials);
+            $credentials = $this->passwordEncoder->encodePassword($credentials, $userDetails->getSalt());
         }
-        
+
         if ($userDetails->getPassword() != $credentials) {
             throw new BadCredentialsException();
         }
-        
+
         $roles = array();
         if ($this->roleManager != null) {
             $roles = $this->roleManager->getRoles($userDetails);
         }
-        
+
         return new BaseAuthentication($userDetails, Authentication::FULLY_AUTHENTICATED, $roles);
     }
-    
+
     /**
-     * 
+     *
      * @param UserDetailsService $userDetailsService
      */
     public function setUserDetailsService(UserDetailsService $userDetailsService) {
         $this->userDetailsService =  $userDetailsService;
     }
-    
+
     /**
-     * 
+     *
      * @param PasswordEncoder $passwordEncoder
      */
     public function setPasswordEncoder(PasswordEncoder $passwordEncoder) {
         $this->passwordEncoder = $passwordEncoder;
     }
-    
+
     /**
-     * 
+     *
      * @param RoleManager $roleManager
      */
     public function setRoleManager(RoleManager $roleManager) {
