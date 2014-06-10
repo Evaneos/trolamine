@@ -22,15 +22,17 @@ class User implements UserDetails
      * @param string  $user
      * @param string  $username
      * @param string  $password
+     * @param string  $salt
      * @param boolean $accountNonExpired
      * @param boolean $accountNonLocked
      * @param boolean $credentialsNonExpired
      * @param boolean $enabled
      */
-    public function __construct($user, $username, $password, $accountNonExpired=true, $accountNonLocked=true, $credentialsNonExpired=true, $enabled=true) {
+    public function __construct($user, $username, $password, $salt = null, $accountNonExpired=true, $accountNonLocked=true, $credentialsNonExpired=true, $enabled=true) {
         $this->user = $user;
         $this->username = $username;
         $this->password = $password;
+        $this->salt = $salt;
         $this->accountNonExpired = $accountNonExpired;
         $this->accountNonLocked = $accountNonLocked;
         $this->credentialsNonExpired = $credentialsNonExpired;
