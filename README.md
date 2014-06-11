@@ -91,7 +91,7 @@ Then, you can activate the security activator to be able to use the "security" k
 When setting the container, you'll have to add the declared activator.
 
 	$activator = new \DICIT\ActivatorFactory();
-    $container = new \Evaneos\Pro\Container\DICITAdapter($config, $activator);
+    $container = new \Evaneos\Api\Container\DICITAdapter($config, $activator);
     [...]
     $activator->addActivator('security', $container->get('SecurityActivator'), false);
 
