@@ -253,4 +253,14 @@ class SecurityTest extends PHPUnit_Framework_TestCase
             $this->assertTrue(true);
         }
     }
+
+    public function testSecurityContext (){
+        $securityContext = new SimpleSecurityContext(new UnanimousBased(array($this->voter)));
+        $securityContext->setAuthentication($this->authentication);
+
+        $this->assertTrue ($securityContext->hasRole ('ROLE_ADMIN'));
+        $this->assertFalse ($securityContext->hasRole ('ROLE_TEST'));
+        $this->assertFalse ($securityContext->hasAnyRole (array ('ROLE_TEST')));
+        $this->assertTrue ($securityContext->hasAnyRole (array ('ROLE_TEST', 'ROLE_ADMIN')));
+    }
 }

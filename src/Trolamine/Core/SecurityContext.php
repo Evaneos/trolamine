@@ -35,4 +35,9 @@ interface SecurityContext
      * @param string $roleName
      */
     function hasRole($roleName);
+
+    /**
+     * @param array $roles
+     */
+    function hasAnyRole($roles);
 }
