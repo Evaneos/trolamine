@@ -61,4 +61,21 @@ class SimpleSecurityContext implements SecurityContext
         
         return true;
     }
+
+    function hasAnyRole($roles) {
+        $roleOperation = new MethodSecurityExpressionRoot();
+        $roleConfigAttribute = new OperationConfigAttribute($roleOperation, 'hasAnyRole', array($roles));
+        
+        try {
+            $this->accessDecisionManager->decide($this->authentication, null, array($roleConfigAttribute));
+        } catch (AccessDeniedException $ade) {
+            return false;
+        }  catch (InsufficientAuthenticationException $ade) {
+            return false;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+        
+        return true;
+    }
 }
