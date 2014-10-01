@@ -19,4 +19,11 @@ interface Operation
      * @return Authentication the {@link Authentication} for evaluating the expressions
      */
     function getAuthentication();
+    
+    /**
+     * Gets the user object from the {@link Authentication} object
+     * 
+     * @return Object the object representing the user in the application
+     */
+    function getUser();
 }

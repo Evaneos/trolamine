@@ -34,4 +34,16 @@ abstract class AbstractOperation implements Operation
     public function getAuthentication(){
         return $this->authentication;
     }
+    
+    /**
+     * (non-PHPdoc)
+     * @see \Trolamine\Core\Operation\Operation::getUser()
+     */
+    public function getUser(){
+        if (!$this->authentication || !$this->authentication->getAuthenticatedUser()) {
+            return null;
+        } else {
+            return $this->authentication->getAuthenticatedUser()->getUser();
+        }
+    }
 }
