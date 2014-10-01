@@ -123,6 +123,8 @@ class Secured
                     foreach ($newConfigAttributes as $attribute) {
                         // Update the parameters (only objects)
                         OperationsUtil::evaluate($this->securityContext->getAuthentication(), $attribute);
+                        
+                        // TODO only works with objects
                     }
                 }
             }
