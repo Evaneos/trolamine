@@ -19,14 +19,20 @@
 	<filter>
 	    <blacklist>
 	        <exclude>
-                <directory suffix=".php">./vendor</directory>
-            </exclude>
+                    <directory suffix=".php">./vendor</directory>
+                    <directory suffix=".php">./src/Trolamine/Activator</directory>
+                    <directory suffix=".php">./src/Trolamine/Layer</directory>
+                    <directory suffix=".php">./src/Trolamine/Core/Exception/Handler</directory>
+                </exclude>
 	    </blacklist>
-		<whitelist processUncoveredFilesFromWhitelist="true">
+	    <whitelist processUncoveredFilesFromWhitelist="true">
 	        <directory suffix=".php">./src</directory>
 	        <exclude>
-                <directory suffix=".php">./vendor</directory>
-            </exclude>
+                    <directory suffix=".php">./vendor</directory>
+                    <directory suffix=".php">./src/Trolamine/Activator</directory>
+                    <directory suffix=".php">./src/Trolamine/Layer</directory>
+                    <directory suffix=".php">./src/Trolamine/Core/Exception/Handler</directory>
+                </exclude>
 	    </whitelist>
 	</filter>
 </phpunit>
