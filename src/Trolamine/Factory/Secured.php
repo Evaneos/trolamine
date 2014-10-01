@@ -3,6 +3,7 @@ namespace Trolamine\Factory;
 
 use Trolamine\Core\SecurityContext;
 use Trolamine\Core\Access\OperationConfigAttribute;
+use Trolamine\Core\Access\OperationsUtil;
 
 class Secured
 {
@@ -52,34 +53,34 @@ class Secured
     protected function getParametersByRealValues($args, array $parameters, $object=null) {
         $newArgs = array();
         if ($args != null && is_array($args) && count($args)>0) {
-            foreach ($args as $arg) {
+            foreach ($args as $key=>$arg) {
                 $newArg = $arg;
                 if ($arg == self::RETURN_OBJECT_ALIAS) {
-                    $newArg = $object;
+                    $newArg = &$object;
                 } else if (is_string($arg) && strpos($arg, self::PREFIX) === 0) {
                     $argName = substr($arg, 1);
                     if (array_key_exists($argName, $parameters)) {
-                        $newArg = $parameters[$argName];
+                        $newArg = &$parameters[$argName];
                     }
                 }
-                $newArgs[] = $newArg;
+                $newArgs[$key] = $newArg;
             }
         }
         return $newArgs;
     }
     
-    private function addChecks($checks, $key, $actionName) {
+    private function addConfigAttributes($configAttributes, $key, $actionName) {
         if (array_key_exists($key, $this->config)) {
             $actions = $this->config[$key];
             if (is_array($actions) && count($actions)>0 && array_key_exists($actionName,  $actions)) {
-                $localChecks = $actions[$actionName];
+                $localConfigAttributes = $actions[$actionName];
                 
-                if (is_array($localChecks) && count($localChecks)>0) {
-                    $checks = array_merge($checks, $localChecks);
+                if (is_array($localConfigAttributes) && count($localConfigAttributes)>0) {
+                    $configAttributes = array_merge($configAttributes, $localConfigAttributes);
                 }
             }
         }
-        return $checks;
+        return $configAttributes;
     }
     
     /**
@@ -90,33 +91,40 @@ class Secured
      * @param string $actionName the security action (PRE/POST-AUTH/FILT)
      * @param mixed  $object     the reference object
      */
-    protected function check($method, array $parameters, $actionName, $object=null) {
+    protected function process($method, array $parameters, $actionName, $object=null) {
         $methodName = $method;
         
         if (is_array($this->config) && count($this->config)>0 && (array_key_exists(self::ALL, $this->config) || array_key_exists($methodName, $this->config))) {
             
-            $checks = array();
-            $checks = $this->addChecks($checks, self::ALL, $actionName);
-            $checks = $this->addChecks($checks, $methodName, $actionName);
+            $configAttributes = array();
+            $configAttributes = $this->addConfigAttributes($configAttributes, self::ALL, $actionName);
+            $configAttributes = $this->addConfigAttributes($configAttributes, $methodName, $actionName);
             
-            if (is_array($checks) && count($checks)>0) {
+            if (is_array($configAttributes) && count($configAttributes)>0) {
                 
                 //replace the ref args by the real value
-                $newChecks= array();
-                foreach ($checks as $check) {
+                $newConfigAttributes= array();
+                foreach ($configAttributes as $configAttribute) {
                     /* @var $check OperationConfigAttribute */
-                    $args = $this->getParametersByRealValues($check->args, $parameters, $object);
+                    $args = $this->getParametersByRealValues($configAttribute->args, $parameters, $object);
                     
-                    $newCheck = clone $check;
-                    $newCheck->args = $args;
-                    $newChecks[] = $newCheck;
+                    $newConfigAttribute = clone $configAttribute;
+                    $newConfigAttribute->args = $args;
+                    $newConfigAttributes[] = $newConfigAttribute;
                 }
                 
-                $this->securityContext->getAccessDecisionManager()->decide(
-                    $this->securityContext->getAuthentication(),
-                    $object,
-                    $newChecks
-                );
+                if ($actionName == self::PRE_AUTHORIZE || $actionName == self::POST_AUTHORIZE) {    
+                    $this->securityContext->getAccessDecisionManager()->decide(
+                        $this->securityContext->getAuthentication(),
+                        $object,
+                        $newConfigAttributes
+                    );
+                } else if ($actionName == self::PRE_FILTER || $actionName == self::POST_FILTER) {
+                    foreach ($newConfigAttributes as $attribute) {
+                        // Update the parameters (only objects)
+                        OperationsUtil::evaluate($this->securityContext->getAuthentication(), $attribute);
+                    }
+                }
             }
         }
     }
@@ -125,7 +133,7 @@ class Secured
      * The PreAuthorize method to be called before the real method call
      */
     public function preAuthorize($method, array $parameters=array()) {
-        $this->check($method, $parameters, self::PRE_AUTHORIZE);
+        $this->process($method, $parameters, self::PRE_AUTHORIZE);
     }
     
     /**
@@ -134,14 +142,14 @@ class Secured
      * @param mixed $response the response of the method to secure
      */
     public function postAuthorize($method, array $parameters=array(), $response) {
-        $this->check($method, $parameters, self::POST_AUTHORIZE, $response);
+        $this->process($method, $parameters, self::POST_AUTHORIZE, $response);
     }
     
     /**
      * The PreFilter method to be called before the real method call
      */
     public function preFilter($method, array $parameters=array()) {
-        //TODO modify the parameters
+        $this->process($method, $parameters, self::PRE_FILTER);
         return $parameters;
     }
     

@@ -218,7 +218,7 @@ class GenericSecuredClassFactory implements SecuredClassFactory
                 }
 
                 $signature .= $methodName . '(' .implode(', ', $paramsSignature).') {';
-
+                
                 //Code generation
                 //TODO generalize secured
                 $resultVar = $this->generateRandomVarName();
@@ -228,7 +228,7 @@ class GenericSecuredClassFactory implements SecuredClassFactory
                 $methodContent .= '        $'.$paramsVar.' = array('.$this->getParamsArrayAsString($params).');'."\n";
                 $methodContent .= '        $this->secured->preAuthorize(\''.$methodName.'\', $'.$paramsVar.');'."\n";
                 $methodContent .= '        $'.$paramsVar.' = $this->secured->preFilter(\''.$methodName.'\', $'.$paramsVar.');'."\n";
-                $methodContent .= '        $'.$resultVar.' = parent::'.$methodName.'('.implode(', ', $params).');'."\n";
+                $methodContent .= '        $'.$resultVar.' = parent::'.$methodName.'('.$this->getParamsArrayValuesAsString($paramsVar, $params).');'."\n";
                 $methodContent .= '        $'.$resultVar.' = $this->secured->postFilter(\''.$methodName.'\', $'.$paramsVar.', $'.$resultVar.');'."\n";
                 $methodContent .= '        $this->secured->postAuthorize(\''.$methodName.'\', $'.$paramsVar.', $'.$resultVar.');'."\n";
                 $methodContent .= '        return $'.$resultVar.';'."\n";
@@ -283,6 +283,14 @@ class GenericSecuredClassFactory implements SecuredClassFactory
             $keyValueArray[] = "'".$key."'=>".$value;
         }
         return implode(', ', $keyValueArray);
+    }
+    
+    function getParamsArrayValuesAsString($arrayName, $params) {
+        $values = array();
+        foreach($params as $key=>$value) {
+            $values[] = '$'.$arrayName."['".$key."']";
+        }
+        return implode(', ', $values);
     }
 
     function getSecuredName($name, $alias) {
