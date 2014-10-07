@@ -17,6 +17,14 @@ class SecurityExpressionRoot extends AbstractOperation implements SecurityExpres
     
     /**
      * (non-PHPdoc)
+     * @see \Trolamine\Core\Operation\SecurityExpressionOperations::denyAccess()
+     */
+    function denyAccess() {
+        return false;
+    }
+    
+    /**
+     * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\SecurityExpressionOperations::hasAuthority()
      */
     function  hasAuthority($authority){

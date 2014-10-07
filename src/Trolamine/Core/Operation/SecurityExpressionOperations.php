@@ -14,6 +14,11 @@ interface SecurityExpressionOperations extends Operation
 {
     
     /**
+     * Always denies access
+     */
+    function denyAccess();
+    
+    /**
      * Determines if the {@link #getAuthentication()} has a particular authority within {@link Authentication#getAuthorities()}. This is a synonym for {@link #hasAuthority(String)}.
      * 
      * @param  string  authority the authority to test (i.e. "ROLE_USER")
