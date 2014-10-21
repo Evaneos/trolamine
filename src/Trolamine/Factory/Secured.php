@@ -19,6 +19,14 @@ class Secured
     const RETURN_OBJECT_ALIAS = '&returnObject';
     
     /**
+     * ONLY USE WHEN NO OTHER SOLUTION IS APPLICABLE
+     * Disables security
+     * 
+     * @var bool
+     */
+    public static $BYPASS = false;
+    
+    /**
      * The associative array of parameters :
      * array (
      *     ['methodNameToSecure'] => array (
@@ -92,6 +100,11 @@ class Secured
      * @param mixed  $object     the reference object
      */
     protected function process($method, array $parameters, $actionName, $object=null) {
+        
+        if (self::$BYPASS) {
+            return;
+        }
+        
         $methodName = $method;
         
         if (is_array($this->config) && count($this->config)>0 && (array_key_exists(self::ALL, $this->config) || array_key_exists($methodName, $this->config))) {
