@@ -94,7 +94,10 @@ class GenericSecuredClassFactory implements SecuredClassFactory
 
         if (!file_exists($fileName) || filemtime($fileName)<filemtime($class->getFileName())) {
             $code = $this->generateCode($class, $alias, $securedParameters);
-            $this->write($fileName, $code);
+            $tmpFileName = $fileName . "." . uniqid();
+            if ($this->write($tmpFileName, $code)) {
+                rename($tmpFileName, $fileName);
+            }
         }
 
         include_once($fileName);
@@ -274,7 +277,7 @@ class GenericSecuredClassFactory implements SecuredClassFactory
     }
 
     function write($fileName, $code) {
-        file_put_contents($fileName, $code);
+        return file_put_contents($fileName, $code, LOCK_EX);
     }
 
     function getParamsArrayAsString($params) {
