@@ -1,6 +1,8 @@
 <?php
 namespace Trolamine\Layer;
 
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
 use Pyrite\Layer\AbstractLayer;
 use Pyrite\Response\ResponseBag;
 use Pyrite\Container\Container;
@@ -11,9 +13,8 @@ use Trolamine\Core\Authentication\Authentication;
 use Trolamine\Core\Authentication\AnonymousAuthenticationToken;
 use Trolamine\Core\SecurityContext;
 
-class AuthenticationLayer extends AbstractLayer
+class AuthenticationLayer extends AbstractLayer implements LoggerAwareInterface
 {
-    
     /**
      * The authentication var name in the ResponseBag
      * 
@@ -33,8 +34,13 @@ class AuthenticationLayer extends AbstractLayer
      * 
      * @var SecurityContext
      */
-    private $securityContext; 
-    
+    private $securityContext;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
     /**
      * Constructor
      * 
@@ -75,6 +81,18 @@ class AuthenticationLayer extends AbstractLayer
         if ($authentication == null) {
             $authentication = new AnonymousAuthenticationToken();
         }
+        if ($this->logger) {
+            $this->logger->info('entering authentication layer', array(
+                'auth'          => $authentication->getPrincipal(),
+                'phpsessid'     => $request->cookies->get(ini_get('session.name')),
+                'signature'     => md5($request->headers->get('user-agent') . $request->getClientIp()),
+                'ip'            => $request->getClientIp(),
+                'method'        => $request->getMethod(),
+                'uri'           => $request->getUri(),
+                'ua'            => $request->headers->get('user-agent'),
+            ));
+        }
+
         $responseBag->set(self::VAR_NAME, $authentication);
         $this->securityContext->setAuthentication($authentication);
     }
@@ -86,9 +104,17 @@ class AuthenticationLayer extends AbstractLayer
     protected function after(ResponseBag $responseBag) {
         /* @var $authentication Authentication */
         $authentication = $responseBag->get(self::VAR_NAME, null);
-        
+
         /* @var $request Request */
         $request = $this->request;
         $request->getSession()->set(self::$sessionVarName, $authentication);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 }
