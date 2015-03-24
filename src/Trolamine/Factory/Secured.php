@@ -135,9 +135,7 @@ class Secured
                 } else if ($actionName == self::PRE_FILTER || $actionName == self::POST_FILTER) {
                     foreach ($newConfigAttributes as $attribute) {
                         // Update the parameters (only objects)
-                        OperationsUtil::evaluate($this->securityContext->getAuthentication(), $attribute);
-                        
-                        // TODO only works with objects
+                        return OperationsUtil::evaluate($this->securityContext->getAuthentication(), $attribute);
                     }
                 }
             }
@@ -174,7 +172,6 @@ class Secured
      * @param mixed $response the response of the method to secure
      */
     public function postFilter($method, array $parameters=array(), $response) {
-        //TODO modify the response
-        return $response;
+        return $this->process($method, $parameters, self::POST_FILTER, $response);
     }
 }
