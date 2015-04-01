@@ -135,7 +135,7 @@ class Secured
                 } else if ($actionName == self::PRE_FILTER || $actionName == self::POST_FILTER) {
                     foreach ($newConfigAttributes as $attribute) {
                         // Update the parameters (only objects)
-                        return OperationsUtil::evaluate($this->securityContext->getAuthentication(), $attribute);
+                        OperationsUtil::evaluate($this->securityContext->getAuthentication(), $attribute);
                     }
                 }
             }
@@ -172,6 +172,7 @@ class Secured
      * @param mixed $response the response of the method to secure
      */
     public function postFilter($method, array $parameters=array(), $response) {
-        return $this->process($method, $parameters, self::POST_FILTER, $response);
+        $this->process($method, $parameters, self::POST_FILTER, $response);
+        return $response;
     }
 }

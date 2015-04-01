@@ -196,6 +196,8 @@ class GenericSecuredClassFactory implements SecuredClassFactory
 
                     if ($parameter->isDefaultValueAvailable()) {
                         $paramString .= ' = ' . var_export($parameter->getDefaultValue(), true);
+                    } else {
+                        $paramString .= ' = null';
                     }
 
                     $params[$paramName] = '$' . $paramName;
