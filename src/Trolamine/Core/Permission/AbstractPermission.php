@@ -12,12 +12,12 @@ abstract class AbstractPermission implements Permission
     /**
      * @var int
      */
-    protected $mask ;
+    protected $mask;
     
     /**
      * @var string
      */
-    protected $code ;
+    protected $code;
     
     /**
      * 
@@ -58,24 +58,18 @@ abstract class AbstractPermission implements Permission
      * @see \Trolamine\Core\Permission::equals()
      */
     public function equals($obj) {
-        if ($obj == null) {
+        if (null === $obj) {
             return false;
         }
     
-        if (!($obj instanceof Permission)) {
+        if (!$obj instanceof Permission) {
             return false;
         }
         
         /* @var $obj Permission */
-        return ($this.mask == $obj->getMask());
+        return $this->mask === $obj->getMask();
     }
-    
-    /**
-     * (non-PHPdoc)
-     * @see \Trolamine\Core\Permission::equals()
-     */
-    public abstract function contains($obj);
-    
+
     public function __toString() {
         return $this->code;
     }

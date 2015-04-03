@@ -3,7 +3,12 @@
     "description": "The security plugin for Pyrite",
     "type": "library",
     "homepage" : "http://github.com/evaneos/trolamine",
-    "keywords": [],
+    "keywords" : [
+      "pyrite",
+      "php",
+      "security",
+      "authentication"
+    ],
     "time": "2014-04-07",
     "license": "MIT",
     "authors": [
@@ -19,12 +24,6 @@
             "role" : "Developer"
         }
     ],
-    "keywords" : [
-        "pyrite",
-        "php",
-        "security",
-        "authentication"
-    ],
     "repositories": [
     	{
 	    "type" : "vcs",
@@ -36,8 +35,13 @@
         }
     ],
     "autoload" : {
-        "psr-0" : {
-            "Trolamine\\" : "src/"
+        "psr-4" : {
+            "Trolamine\\" : "src/Trolamine/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Trolamine\\Tests\\": "tests/"
         }
     },
     "suggest" : {

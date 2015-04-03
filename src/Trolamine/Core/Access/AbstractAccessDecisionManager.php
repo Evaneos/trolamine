@@ -89,6 +89,6 @@ abstract class AbstractAccessDecisionManager implements AccessDecisionManager
             }
         }
 
-        return true;
+        return false;
     }    
 }

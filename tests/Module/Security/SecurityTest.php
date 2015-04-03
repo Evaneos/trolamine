@@ -1,18 +1,19 @@
 <?php
+namespace Trolamine\Tests\Module\Security;
+
 use Trolamine\Core\Operation\MethodSecurityExpressionRoot;
 use Trolamine\Core\Authentication\BaseAuthentication;
 use Trolamine\Core\Authentication\Authentication;
 use Trolamine\Core\Access\OperationDecisionVoter;
 use Trolamine\Core\Access\OperationConfigAttribute;
 use Trolamine\Core\Access\AccessDecisionVoter;
-use Trolamine\Core\Access\AccessDecisionManager;
 use Trolamine\Core\Access\UnanimousBased;
 use Trolamine\Core\Access\ConsensusBased;
 use Trolamine\Core\Access\AffirmativeBased;
 use Trolamine\Factory\Secured;
 use Trolamine\Core\SimpleSecurityContext;
 
-class SecurityTest extends PHPUnit_Framework_TestCase
+class SecurityTest extends \PHPUnit_Framework_TestCase
 {
     
     private $authentication = null;
@@ -102,8 +103,8 @@ class SecurityTest extends PHPUnit_Framework_TestCase
         
         try {
             $decisionManager->decide($this->authentication, null, array());
-            $this->assertTrue(false, 'Empty conditions');
-        } catch (Exception $e) {
+            $this->fail('Empty conditions');
+        } catch (\Exception $e) {
             $this->assertTrue(true, 'Empty conditions');
         }
         
@@ -111,23 +112,23 @@ class SecurityTest extends PHPUnit_Framework_TestCase
         try {
             $decisionManager->decide($this->authentication, null, array($adminConfigAttribute));
             $this->assertTrue(true, 'ROLE_ADMIN');
-        } catch (Exception $e) {
-            $this->assertTrue(false, 'ROLE_ADMIN');
+        } catch (\Exception $e) {
+            $this->fail('ROLE_ADMIN');
         }
         
         //hasRole('ROLE_USER')
         try {
             $decisionManager->decide($this->authentication, null, array($userConfigAttribute));
             $this->assertTrue(true, 'ROLE_USER');
-        } catch (Exception $e) {
-            $this->assertTrue(false, 'ROLE_USER');
+        } catch (\Exception $e) {
+            $this->fail('ROLE_USER');
         }
         
         //hasRole('ROLE_TEST')
         try {
             $decisionManager->decide($this->authentication, null, array($testConfigAttribute));
-            $this->assertTrue(false, 'ROLE_TEST');
-        } catch (Exception $e) {
+            $this->fail('ROLE_TEST');
+        } catch (\Exception $e) {
             $this->assertTrue(true, 'ROLE_TEST');
         }
         
@@ -135,8 +136,8 @@ class SecurityTest extends PHPUnit_Framework_TestCase
         try {
             $decisionManager->decide($this->authentication, null, array($adminUserConfigAttribute));
             $this->assertTrue(true, 'ROLE_ADMIN or ROLE_USER');
-        } catch (Exception $e) {
-            $this->assertTrue(false, 'ROLE_ADMIN or ROLE_USER');
+        } catch (\Exception $e) {
+            $this->fail('ROLE_ADMIN or ROLE_USER');
         }
     }
     
@@ -144,8 +145,7 @@ class SecurityTest extends PHPUnit_Framework_TestCase
         $adminConfigAttribute = $this->adminConfigAttribute;
         $userConfigAttribute = $this->userConfigAttribute ;
         $testConfigAttribute = $this->testConfigAttribute ;
-        $adminUserConfigAttribute = $this->adminUserConfigAttribute ;
-        
+
         $decisionManager = new UnanimousBased(array($this->voter));
         $this->processDecisionManager($decisionManager);
         
@@ -153,16 +153,16 @@ class SecurityTest extends PHPUnit_Framework_TestCase
         try {
             $decisionManager->decide($this->authentication, null, array($adminConfigAttribute, $userConfigAttribute));
             $this->assertTrue(true, 'ROLE_USER AND ROLE_ADMIN');
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             echo $e->getTraceAsString();
-            $this->assertTrue(false, 'ROLE_USER AND ROLE_ADMIN');
+            $this->fail('ROLE_USER AND ROLE_ADMIN');
         }
         
         //hasRole('ROLE_ADMIN') AND hasRole('ROLE_USER')
         try {
             $decisionManager->decide($this->authentication, null, array($adminConfigAttribute, $testConfigAttribute));
-            $this->assertTrue(false, 'ROLE_TEST AND ROLE_ADMIN');
-        } catch (Exception $e) {
+            $this->fail('ROLE_TEST AND ROLE_ADMIN');
+        } catch (\Exception $e) {
             $this->assertTrue(true, 'ROLE_TEST AND ROLE_ADMIN');
         }
     }
@@ -171,8 +171,7 @@ class SecurityTest extends PHPUnit_Framework_TestCase
         $adminConfigAttribute = $this->adminConfigAttribute;
         $userConfigAttribute = $this->userConfigAttribute ;
         $testConfigAttribute = $this->testConfigAttribute ;
-        $adminUserConfigAttribute = $this->adminUserConfigAttribute ;
-        
+
         $decisionManager = new ConsensusBased(array($this->voter));
         $this->processDecisionManager($decisionManager);
         
@@ -180,15 +179,15 @@ class SecurityTest extends PHPUnit_Framework_TestCase
         try {
             $decisionManager->decide($this->authentication, null, array($adminConfigAttribute, $userConfigAttribute));
             $this->assertTrue(true, 'ROLE_USER AND ROLE_ADMIN');
-        } catch (Exception $e) {
-            $this->assertTrue(false, 'ROLE_USER AND ROLE_ADMIN');
+        } catch (\Exception $e) {
+            $this->fail('ROLE_USER AND ROLE_ADMIN');
         }
         
         //hasRole('ROLE_ADMIN') AND hasRole('ROLE_USER')
         try {
             $decisionManager->decide($this->authentication, null, array($adminConfigAttribute, $testConfigAttribute));
-            $this->assertTrue(false, 'ROLE_TEST AND ROLE_ADMIN');
-        } catch (Exception $e) {
+            $this->fail('ROLE_TEST AND ROLE_ADMIN');
+        } catch (\Exception $e) {
             $this->assertTrue(true, 'ROLE_TEST AND ROLE_ADMIN');
         }
     }
@@ -197,8 +196,7 @@ class SecurityTest extends PHPUnit_Framework_TestCase
         $adminConfigAttribute = $this->adminConfigAttribute;
         $userConfigAttribute = $this->userConfigAttribute ;
         $testConfigAttribute = $this->testConfigAttribute ;
-        $adminUserConfigAttribute = $this->adminUserConfigAttribute ;
-        
+
         $decisionManager = new AffirmativeBased(array($this->voter));
         $this->processDecisionManager($decisionManager);
         
@@ -206,16 +204,16 @@ class SecurityTest extends PHPUnit_Framework_TestCase
         try {
             $decisionManager->decide($this->authentication, null, array($adminConfigAttribute, $userConfigAttribute));
             $this->assertTrue(true, 'ROLE_USER AND ROLE_ADMIN');
-        } catch (Exception $e) {
-            $this->assertTrue(false, 'ROLE_USER AND ROLE_ADMIN');
+        } catch (\Exception $e) {
+            $this->fail('ROLE_USER AND ROLE_ADMIN');
         }
         
         //hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')
         try {
             $decisionManager->decide($this->authentication, null, array($adminConfigAttribute, $testConfigAttribute));
             $this->assertTrue(true, 'ROLE_TEST AND ROLE_ADMIN');
-        } catch (Exception $e) {
-            $this->assertTrue(false, 'ROLE_TEST AND ROLE_ADMIN');
+        } catch (\Exception $e) {
+            $this->fail('ROLE_TEST AND ROLE_ADMIN');
         }
     }
     
@@ -249,7 +247,7 @@ class SecurityTest extends PHPUnit_Framework_TestCase
         try {
             $this->nestedCall('toto', 'titi', $config);
             $this->assertTrue(false);
-        } catch (\exception $e){
+        } catch (\Exception $e){
             $this->assertTrue(true);
         }
     }

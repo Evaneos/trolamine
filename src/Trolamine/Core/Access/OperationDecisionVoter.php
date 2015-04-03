@@ -11,7 +11,7 @@ class OperationDecisionVoter implements AccessDecisionVoter
      * @see \Trolamine\Core\Access\AccessDecisionVoter::supports()
      */
     function supports($attribute) {
-        return ($attribute instanceof OperationConfigAttribute);
+        return $attribute instanceof OperationConfigAttribute;
     }
 
     /**

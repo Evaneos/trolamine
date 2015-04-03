@@ -86,7 +86,7 @@ class ConsensusBased extends AbstractAccessDecisionManager
      * @return boolean
      */
     public function isAllowIfEqualGrantedDeniedDecisions() {
-        return $allowIfEqualGrantedDeniedDecisions;
+        return $this->allowIfEqualGrantedDeniedDecisions;
     }
 
     /**
