@@ -14,16 +14,16 @@ use Trolamine\Core\Exception\AccessDeniedException;
 abstract class AbstractAccessDecisionManager implements AccessDecisionManager
 {
 
-    const ACCESSDENIED = 'Access Denied!';
-    
+    const ACCESS_DENIED = 'Access Denied!';
+
     /**
-     * 
+     *
      * @var array<AccessDecisionVoter>
      */
     private $decisionVoters;
 
     /**
-     * 
+     *
      * @var boolean
      */
     private $allowIfAllAbstainDecisions = false;
@@ -34,7 +34,7 @@ abstract class AbstractAccessDecisionManager implements AccessDecisionManager
 
     protected function checkAllowIfAllAbstainDecisions() {
         if (!$this->isAllowIfAllAbstainDecisions()) {
-            throw new AccessDeniedException(self::ACCESSDENIED);
+            throw new AccessDeniedException(self::ACCESS_DENIED);
         }
     }
 
@@ -53,7 +53,7 @@ abstract class AbstractAccessDecisionManager implements AccessDecisionManager
     public function addDecisionVoter(AccessDecisionVoter $voter) {
         $this->decisionVoters[] = $voter;
     }
-    
+
     public function setDecisionVoters(array $newList) {
         $this->decisionVoters = $newList;
     }
@@ -77,7 +77,7 @@ abstract class AbstractAccessDecisionManager implements AccessDecisionManager
      * </p>
      *
      * @param  string  $class the type of secured object being presented
-     * 
+     *
      * @return boolean true if this type is supported
      */
     public function supportsClass($class) {
@@ -90,5 +90,5 @@ abstract class AbstractAccessDecisionManager implements AccessDecisionManager
         }
 
         return true;
-    }    
+    }
 }

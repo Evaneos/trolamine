@@ -15,7 +15,7 @@ class ConsensusBased extends AbstractAccessDecisionManager
 {
 
     /**
-     * 
+     *
      * @var string
      */
     private $allowIfEqualGrantedDeniedDecisions = true;
@@ -38,7 +38,7 @@ class ConsensusBased extends AbstractAccessDecisionManager
      *                                ACL privilege
      */
     public function decide(Authentication $authentication, $object, array $configAttributes) {
-        
+
         $grant = 0;
         $deny = 0;
 
@@ -51,11 +51,11 @@ class ConsensusBased extends AbstractAccessDecisionManager
                 case AccessDecisionVoter::ACCESS_GRANTED:
                     $grant++;
                     break;
-    
+
                 case AccessDecisionVoter::ACCESS_DENIED:
                     $deny++;
                     break;
-    
+
                 default:
                     break;
             }
@@ -66,14 +66,14 @@ class ConsensusBased extends AbstractAccessDecisionManager
         }
 
         if ($deny > $grant) {
-            throw new AccessDeniedException(AbstractAccessDecisionManager::ACCESSDENIED);
+            throw new AccessDeniedException(AbstractAccessDecisionManager::ACCESS_DENIED);
         }
 
         if (($grant == $deny) && ($grant != 0)) {
             if ($this->allowIfEqualGrantedDeniedDecisions) {
                 return;
             } else {
-                throw new AccessDeniedException(AbstractAccessDecisionManager::ACCESSDENIED);
+                throw new AccessDeniedException(AbstractAccessDecisionManager::ACCESS_DENIED);
             }
         }
 
@@ -82,7 +82,7 @@ class ConsensusBased extends AbstractAccessDecisionManager
     }
 
     /**
-     * 
+     *
      * @return boolean
      */
     public function isAllowIfEqualGrantedDeniedDecisions() {
@@ -91,7 +91,7 @@ class ConsensusBased extends AbstractAccessDecisionManager
 
     /**
      * Sets the strategy in case of equality
-     * 
+     *
      * @param boolean $allowIfEqualGrantedDeniedDecisions
      */
     public function setAllowIfEqualGrantedDeniedDecisions($allowIfEqualGrantedDeniedDecisions) {
