@@ -60,6 +60,9 @@ class SecurityActivator extends AbstractActivatorDecorator
             foreach ($triggers as $triggerName=>$functions) {
                 $operations = array();
                 foreach ($functions as $alias=>$params) {
+                    if (!is_array($params)) {
+                        throw new \RuntimeException('params should be an array ' . $method . ': ' . $triggerName);
+                    }
                     if (array_key_exists('method', $params)) {
                         $realParams = ParamsResolver::resolveParams($container, $params);
                         
