@@ -24,16 +24,6 @@
             "role" : "Developer"
         }
     ],
-    "repositories": [
-    	{
-	    "type" : "vcs",
-	    "url" : "git@github.com:Evaneos/dic-it.git"
-        },
-        {
-            "type" : "vcs",
-            "url" : "git@github.com:Evaneos/pyrite.git"
-        }
-    ],
     "autoload" : {
         "psr-4" : {
             "Trolamine\\" : "src/Trolamine/"
@@ -49,8 +39,7 @@
     	"evaneos/pyrite" : "Usage of Trolamine within Pyrite using the AuthenticationLayer provided by the package"
     },
     "require-dev" : {
-        "phpunit/phpunit": "4.0.*",
-        "squizlabs/php_codesniffer": "1.5.*"
-	},
-    "minimum-stability" : "dev"
+        "phpunit/phpunit": "~4.0",
+        "squizlabs/php_codesniffer": "~1.5"
+	}
 }
