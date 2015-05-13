@@ -3,7 +3,7 @@ namespace Trolamine\Core\Permission;
 
 /**
  * An abstract permission class
- * 
+ *
  * @author Remi
  */
 abstract class AbstractPermission implements Permission
@@ -20,11 +20,12 @@ abstract class AbstractPermission implements Permission
     protected $code;
     
     /**
-     * 
+     *
      * @param int    $mask
      * @param string $code
      */
-    public function __construct($mask, $code) {
+    public function __construct($mask, $code)
+    {
         $this->mask = $mask;
         $this->code = $code;
     }
@@ -33,7 +34,8 @@ abstract class AbstractPermission implements Permission
      * (non-PHPdoc)
      * @see \Trolamine\Core\Permission::getMask()
      */
-    public function getMask() {
+    public function getMask()
+    {
         return $this->mask;
     }
     
@@ -41,7 +43,8 @@ abstract class AbstractPermission implements Permission
      * (non-PHPdoc)
      * @see \Trolamine\Core\Permission::getCode()
      */
-    public function getCode() {
+    public function getCode()
+    {
         return $this->code;
     }
     
@@ -49,7 +52,8 @@ abstract class AbstractPermission implements Permission
      * (non-PHPdoc)
      * @see \Trolamine\Core\Permission::getPattern()
      */
-    public function getPattern() {
+    public function getPattern()
+    {
         return md5($this->mask.$this->code);
     }
     
@@ -57,7 +61,8 @@ abstract class AbstractPermission implements Permission
      * (non-PHPdoc)
      * @see \Trolamine\Core\Permission::equals()
      */
-    public function equals($obj) {
+    public function equals($obj)
+    {
         if (null === $obj) {
             return false;
         }
@@ -70,7 +75,8 @@ abstract class AbstractPermission implements Permission
         return $this->mask === $obj->getMask();
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->code;
     }
 }

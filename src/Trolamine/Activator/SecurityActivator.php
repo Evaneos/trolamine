@@ -4,7 +4,6 @@ namespace Trolamine\Activator;
 use DICIT\Activators\AbstractActivatorDecorator;
 use DICIT\Container;
 use DICIT\Util\ParamsResolver;
-
 use Trolamine\Factory\SecuredClassFactory;
 use Trolamine\Core\Access\OperationConfigAttribute;
 use Trolamine\Core\Operation\MethodSecurityExpressionRoot;
@@ -13,16 +12,17 @@ class SecurityActivator extends AbstractActivatorDecorator
 {
 
     /**
-     * 
+     *
      * @var SecuredClassFactory
      */
     private $securedClassFactory;
     
     /**
-     * 
+     *
      * @param SecuredClassFactory $securedClassFractory
      */
-    public function __construct(SecuredClassFactory $securedClassFactory) {
+    public function __construct(SecuredClassFactory $securedClassFactory)
+    {
         $this->securedClassFactory =$securedClassFactory;
     }
     
@@ -30,28 +30,30 @@ class SecurityActivator extends AbstractActivatorDecorator
      * (non-PHPdoc)
      * @see \DICIT\Activators\AbstractActivatorDecorator::before()
      */
-    protected function before(Container $container, &$serviceName, array &$serviceConfig) {
-        
+    protected function before(Container $container, &$serviceName, array &$serviceConfig)
+    {
     }
     
     /**
      * (non-PHPdoc)
      * @see \DICIT\Activators\AbstractActivatorDecorator::after()
      */
-    protected function after(Container $container, &$serviceName, array &$serviceConfig, $returnObject) {
+    protected function after(Container $container, &$serviceName, array &$serviceConfig, $returnObject)
+    {
         $securityConfig = $this->getSecurityConfig($container, $serviceConfig);
         return $this->securedClassFactory->build($returnObject, $serviceName, $securityConfig);
     }
     
     /**
      * Returns the security config
-     * 
+     *
      * @param  Container $container
      * @param  array     $serviceConfig
-     * 
+     *
      * @return array
      */
-    protected function getSecurityConfig(Container $container, array &$serviceConfig) {
+    protected function getSecurityConfig(Container $container, array &$serviceConfig)
+    {
         $securityConfig = ParamsResolver::resolveParams($container, $serviceConfig['security']);
         $realSecurityConfig = array();
         

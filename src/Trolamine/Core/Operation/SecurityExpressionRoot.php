@@ -10,7 +10,7 @@ class SecurityExpressionRoot extends AbstractOperation implements SecurityExpres
     
     /**
      * The permission evaluator
-     * 
+     *
      * @var PermissionEvaluator
      */
     private $permissionEvaluator;
@@ -19,7 +19,8 @@ class SecurityExpressionRoot extends AbstractOperation implements SecurityExpres
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\SecurityExpressionOperations::denyAccess()
      */
-    function denyAccess() {
+    public function denyAccess()
+    {
         return false;
     }
     
@@ -27,7 +28,8 @@ class SecurityExpressionRoot extends AbstractOperation implements SecurityExpres
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\SecurityExpressionOperations::hasAuthority()
      */
-    function  hasAuthority($authority){
+    public function hasAuthority($authority)
+    {
         $authoritySet = $this->getAuthoritySet();
         return in_array($authority, $authoritySet);
     }
@@ -36,9 +38,10 @@ class SecurityExpressionRoot extends AbstractOperation implements SecurityExpres
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\SecurityExpressionOperations::hasAnyAuthority()
      */
-    function hasAnyAuthority($authorities){
+    public function hasAnyAuthority($authorities)
+    {
         $authoritySet = $this->getAuthoritySet();
-        foreach($authorities as $authority) {
+        foreach ($authorities as $authority) {
             if (in_array($authority, $authoritySet)) {
                 return true;
             }
@@ -50,7 +53,8 @@ class SecurityExpressionRoot extends AbstractOperation implements SecurityExpres
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\SecurityExpressionOperations::hasRole()
      */
-    function hasRole($role){
+    public function hasRole($role)
+    {
         return $this->hasAuthority($role);
     }
     
@@ -58,7 +62,8 @@ class SecurityExpressionRoot extends AbstractOperation implements SecurityExpres
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\SecurityExpressionOperations::hasAnyRole()
      */
-    function hasAnyRole($roles){
+    public function hasAnyRole($roles)
+    {
         return $this->hasAnyAuthority($roles);
     }
     
@@ -66,7 +71,8 @@ class SecurityExpressionRoot extends AbstractOperation implements SecurityExpres
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\SecurityExpressionOperations::isAnonymous()
      */
-    function isAnonymous(){
+    public function isAnonymous()
+    {
         return (
             $this->getAuthentication()->getAuthenticationMode() == Authentication::ANONYMOUS ||
             !$this->isAuthenticated()
@@ -77,7 +83,8 @@ class SecurityExpressionRoot extends AbstractOperation implements SecurityExpres
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\SecurityExpressionOperations::isAuthenticated()
      */
-    function isAuthenticated(){
+    public function isAuthenticated()
+    {
         return ($this->isRememberMe() || $this->isFullyAuthenticated());
     }
     
@@ -85,7 +92,8 @@ class SecurityExpressionRoot extends AbstractOperation implements SecurityExpres
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\SecurityExpressionOperations::isRememberMe()
      */
-    function isRememberMe(){
+    public function isRememberMe()
+    {
         return $this->getAuthentication()->getAuthenticationMode() == Authentication::REMEMBER_ME;
     }
     
@@ -93,7 +101,8 @@ class SecurityExpressionRoot extends AbstractOperation implements SecurityExpres
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\SecurityExpressionOperations::isFullyAuthenticated()
      */
-    function isFullyAuthenticated(){
+    public function isFullyAuthenticated()
+    {
         return $this->getAuthentication()->getAuthenticationMode() == Authentication::FULLY_AUTHENTICATED;
     }
     
@@ -101,17 +110,19 @@ class SecurityExpressionRoot extends AbstractOperation implements SecurityExpres
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\SecurityExpressionOperations::hasPermission()
      */
-    function hasPermission($target, Permission $permission){
+    public function hasPermission($target, Permission $permission)
+    {
         $this->permissionEvaluator->hasPermission($this->authentication, $target, $permission);
     }
     
     /**
      * @return array<string> the list of authorities detained by the authenticated user
      */
-    protected function getAuthoritySet() {
+    protected function getAuthoritySet()
+    {
         $authorities =  $this->getAuthentication()->getAuthorities();
         
-        if($authorities == null) {
+        if ($authorities == null) {
             $authorities = array();
         }
         

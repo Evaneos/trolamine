@@ -28,7 +28,7 @@ interface AccessDecisionVoter
      *
      * @return boolean         true if this {@code AccessDecisionVoter} can support the passed configuration attribute
      */
-    function supports($attribute);
+    public function supports($attribute);
 
     /**
      * Indicates whether the {@code AccessDecisionVoter} implementation is able to provide access control
@@ -38,7 +38,7 @@ interface AccessDecisionVoter
      *
      * @return boolean true if the implementation can process the indicated class
     */
-    function supportsClass($class);
+    public function supportsClass($class);
 
     /**
      * Indicates whether or not access is granted.
@@ -64,5 +64,5 @@ interface AccessDecisionVoter
      *
      * @return int                    either {@link #ACCESS_GRANTED}, {@link #ACCESS_ABSTAIN} or {@link #ACCESS_DENIED}
      */
-    function vote(Authentication $authentication, $object, array $attributes);
+    public function vote(Authentication $authentication, $object, array $attributes);
 }

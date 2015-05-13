@@ -15,7 +15,7 @@ class ConsensusBased extends AbstractAccessDecisionManager
 {
 
     /**
-     * 
+     *
      * @var string
      */
     private $allowIfEqualGrantedDeniedDecisions = true;
@@ -37,13 +37,13 @@ class ConsensusBased extends AbstractAccessDecisionManager
      * @throws AccessDeniedException  if access is denied as the authentication does not hold a required authority or
      *                                ACL privilege
      */
-    public function decide(Authentication $authentication, $object, array $configAttributes) {
-        
+    public function decide(Authentication $authentication, $object, array $configAttributes)
+    {
         $grant = 0;
         $deny = 0;
 
         $voters = $this->getDecisionVoters();
-        foreach($voters as $voter) {
+        foreach ($voters as $voter) {
             /* @var $voter AccessDecisionVoter */
             $result = $voter->vote($authentication, $object, $configAttributes);
 
@@ -82,19 +82,21 @@ class ConsensusBased extends AbstractAccessDecisionManager
     }
 
     /**
-     * 
+     *
      * @return boolean
      */
-    public function isAllowIfEqualGrantedDeniedDecisions() {
+    public function isAllowIfEqualGrantedDeniedDecisions()
+    {
         return $this->allowIfEqualGrantedDeniedDecisions;
     }
 
     /**
      * Sets the strategy in case of equality
-     * 
+     *
      * @param boolean $allowIfEqualGrantedDeniedDecisions
      */
-    public function setAllowIfEqualGrantedDeniedDecisions($allowIfEqualGrantedDeniedDecisions) {
+    public function setAllowIfEqualGrantedDeniedDecisions($allowIfEqualGrantedDeniedDecisions)
+    {
         $this->allowIfEqualGrantedDeniedDecisions = $allowIfEqualGrantedDeniedDecisions;
     }
 }

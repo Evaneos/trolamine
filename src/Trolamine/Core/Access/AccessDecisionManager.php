@@ -23,7 +23,7 @@ interface AccessDecisionManager
      * @throws InsufficientAuthenticationException if access is denied as the authentication does not provide a
      *         sufficient level of trust
      */
-    function decide(Authentication $authentication, $object, array $configAttributes);
+    public function decide(Authentication $authentication, $object, array $configAttributes);
 
     /**
      * Indicates whether this <code>AccessDecisionManager</code> is able to process authorization requests
@@ -33,11 +33,11 @@ interface AccessDecisionManager
      * <code>AfterInvocationManager</code>.</p>
      *
      * @param ConfigAttribute   $attribute a configuration attribute that has been configured against the
-     *                                     <code>AccessDecisionManager</code> caller 
+     *                                     <code>AccessDecisionManager</code> caller
      *
      * @return boolean          true if this <code>AccessDecisionManager</code> can support the passed configuration attribute
      */
-    function supports($attribute);
+    public function supports($attribute);
 
     /**
      * Indicates whether the <code>AccessDecisionManager</code> implementation is able to provide access
@@ -47,5 +47,5 @@ interface AccessDecisionManager
      *
      * @return boolean <code>true</code> if the implementation can process the indicated class
     */
-    function supportsClass($class);
+    public function supportsClass($class);
 }

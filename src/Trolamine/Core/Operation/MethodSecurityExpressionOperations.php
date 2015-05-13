@@ -4,13 +4,13 @@ namespace Trolamine\Core\Operation;
 interface MethodSecurityExpressionOperations extends SecurityExpressionOperations
 {
     
-    function setFilterObject($filterObject);
+    public function setFilterObject($filterObject);
 
-    function getFilterObject();
+    public function getFilterObject();
 
-    function setReturnObject($returnObject);
+    public function setReturnObject($returnObject);
 
-    function getReturnObject();
+    public function getReturnObject();
 
-    function getThis();
+    public function getThis();
 }

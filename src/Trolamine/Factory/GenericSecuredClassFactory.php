@@ -24,7 +24,8 @@ class GenericSecuredClassFactory implements SecuredClassFactory
      *
      * @param SecurityContext $securityContext
      */
-    public function __construct(SecurityContext $securityContext, $cacheDir) {
+    public function __construct(SecurityContext $securityContext, $cacheDir)
+    {
         $this->securityContext = $securityContext;
         $this->cacheDir = realpath($cacheDir);
     }
@@ -33,7 +34,8 @@ class GenericSecuredClassFactory implements SecuredClassFactory
      * (non-PHPdoc)
      * @see \Trolamine\Factory\SecuredClassFactory::build()
      */
-    function build($instance, $alias, array $securedParameters=array()) {
+    public function build($instance, $alias, array $securedParameters=array())
+    {
         $instance = $this->getSecuredInstance($instance, $alias, $securedParameters);
         $secured = new Secured($this->securityContext, $securedParameters);
         $instance->setSecured($secured);
@@ -50,14 +52,15 @@ class GenericSecuredClassFactory implements SecuredClassFactory
      *
      * @return the secured instance of the class
      */
-    function getSecuredInstance($instance, $alias, array $securedParameters) {
+    public function getSecuredInstance($instance, $alias, array $securedParameters)
+    {
         $class = new \ReflectionClass($instance);
         $securedInstance = $this->getSecuredClassInstance($class, $alias, $securedParameters);
         $securedClass = new \ReflectionClass($securedInstance);
 
         //Copy the properties
         $properties = $class->getProperties();
-        foreach($properties as $property) {
+        foreach ($properties as $property) {
             /* @var $property \ReflectionProperty */
             $propertyName = $property->getName();
             $property->setAccessible(true);
@@ -84,8 +87,8 @@ class GenericSecuredClassFactory implements SecuredClassFactory
      *
      * @return $object
      */
-    function getSecuredClassInstance(\ReflectionClass $class, $alias, array $securedParameters) {
-
+    public function getSecuredClassInstance(\ReflectionClass $class, $alias, array $securedParameters)
+    {
         $namespace = $class->getNamespaceName();
         $name = $class->getName();
         $securedName = $this->getSecuredName($name, $alias);
@@ -107,8 +110,8 @@ class GenericSecuredClassFactory implements SecuredClassFactory
         return $newReflectionClass->newInstanceArgs();
     }
 
-    function generateCode(\ReflectionClass $class, $alias, $securedParameters) {
-
+    public function generateCode(\ReflectionClass $class, $alias, $securedParameters)
+    {
         $namespace = $class->getNamespaceName();
         $name = $class->getName();
         $securedName = $this->getSecuredName($name, $alias);
@@ -124,13 +127,13 @@ class GenericSecuredClassFactory implements SecuredClassFactory
         $methodsArray = array();
 
         $methodNames = array();
-        if(array_key_exists(Secured::ALL, $securedParameters)) {
+        if (array_key_exists(Secured::ALL, $securedParameters)) {
             $methods = $class->getMethods();
             foreach ($methods as $method) {
                 /* @var $method \ReflectionMethod */
                 $methodName = $method->getName();
                 //We don't secure constructors, magic, final or private methods
-                if(
+                if (
                     !$method->isConstructor() &&
                     !$method->isFinal() &&
                     !$method->isPrivate() &&
@@ -169,7 +172,7 @@ class GenericSecuredClassFactory implements SecuredClassFactory
                 //Method Parameters
                 $methodParameters = $method->getParameters();
                 $params = $paramsSignature = array();
-                foreach($methodParameters as $parameter) {
+                foreach ($methodParameters as $parameter) {
                     /* @var $parameter \ReflectionParameter */
                     $paramName = $parameter->getName();
                     $paramString = '';
@@ -208,7 +211,7 @@ class GenericSecuredClassFactory implements SecuredClassFactory
                 
                 if ($method->isPublic()) {
                     $signature .= 'public ';
-                } else if ($method->isProtected()) {
+                } elseif ($method->isProtected()) {
                     $signature .= 'protected ';
                 }
 
@@ -278,11 +281,13 @@ class GenericSecuredClassFactory implements SecuredClassFactory
         return $classContent;
     }
 
-    function write($fileName, $code) {
+    public function write($fileName, $code)
+    {
         return file_put_contents($fileName, $code, LOCK_EX);
     }
 
-    function getParamsArrayAsString($params) {
+    public function getParamsArrayAsString($params)
+    {
         $keyValueArray = array();
         foreach ($params as $key=>$value) {
             $keyValueArray[] = "'".$key."'=>".$value;
@@ -290,19 +295,22 @@ class GenericSecuredClassFactory implements SecuredClassFactory
         return implode(', ', $keyValueArray);
     }
     
-    function getParamsArrayValuesAsString($arrayName, $params) {
+    public function getParamsArrayValuesAsString($arrayName, $params)
+    {
         $values = array();
-        foreach($params as $key=>$value) {
+        foreach ($params as $key=>$value) {
             $values[] = '$'.$arrayName."['".$key."']";
         }
         return implode(', ', $values);
     }
 
-    function getSecuredName($name, $alias) {
+    public function getSecuredName($name, $alias)
+    {
         return 'Secured'.md5($name.$alias);
     }
 
-    function generateRandomVarName() {
+    public function generateRandomVarName()
+    {
         $str = '';
         for ($i=0;$i<10;$i++) {
             $str .= chr(97 + mt_rand(0, 25));

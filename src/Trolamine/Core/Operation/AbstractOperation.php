@@ -15,7 +15,8 @@ abstract class AbstractOperation implements Operation
      */
     protected $authentication;
 
-    public function __construct(Authentication $a=null) {
+    public function __construct(Authentication $a=null)
+    {
         $this->authentication =$a;
     }
 
@@ -23,7 +24,8 @@ abstract class AbstractOperation implements Operation
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\Operation::setAuthentication()
      */
-    public function setAuthentication(Authentication $authentication) {
+    public function setAuthentication(Authentication $authentication)
+    {
         $this->authentication =$authentication;
     }
 
@@ -31,7 +33,8 @@ abstract class AbstractOperation implements Operation
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\Operation::getAuthentication()
      */
-    public function getAuthentication(){
+    public function getAuthentication()
+    {
         return $this->authentication;
     }
     
@@ -39,7 +42,8 @@ abstract class AbstractOperation implements Operation
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\Operation::getUser()
      */
-    public function getUser(){
+    public function getUser()
+    {
         if (!$this->authentication || !$this->authentication->getAuthenticatedUser()) {
             return null;
         } else {

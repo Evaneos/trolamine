@@ -28,7 +28,8 @@ class User implements UserDetails
      * @param boolean $credentialsNonExpired
      * @param boolean $enabled
      */
-    public function __construct($user, $username, $password, $salt = null, $accountNonExpired=true, $accountNonLocked=true, $credentialsNonExpired=true, $enabled=true) {
+    public function __construct($user, $username, $password, $salt = null, $accountNonExpired=true, $accountNonLocked=true, $credentialsNonExpired=true, $enabled=true)
+    {
         $this->user = $user;
         $this->username = $username;
         $this->password = $password;
@@ -43,7 +44,8 @@ class User implements UserDetails
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication\UserDetails::getUser()
      */
-    function getUser() {
+    public function getUser()
+    {
         return $this->user;
     }
 
@@ -51,7 +53,8 @@ class User implements UserDetails
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication\UserDetails::getPassword()
      */
-    function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
@@ -59,7 +62,8 @@ class User implements UserDetails
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication\UserDetails::getSalt()
      */
-    function getSalt() {
+    public function getSalt()
+    {
         return $this->salt;
     }
 
@@ -67,7 +71,8 @@ class User implements UserDetails
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication\UserDetails::getUsername()
      */
-    function getUsername() {
+    public function getUsername()
+    {
         return $this->username;
     }
 
@@ -75,7 +80,8 @@ class User implements UserDetails
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication\UserDetails::isAccountNonExpired()
      */
-    function isAccountNonExpired(){
+    public function isAccountNonExpired()
+    {
         return $this->accountNonExpired;
     }
 
@@ -83,7 +89,8 @@ class User implements UserDetails
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication\UserDetails::isAccountNonLocked()
      */
-    function isAccountNonLocked(){
+    public function isAccountNonLocked()
+    {
         return $this->accountNonLocked;
     }
 
@@ -91,7 +98,8 @@ class User implements UserDetails
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication\UserDetails::isCredentialsNonExpired()
      */
-    function isCredentialsNonExpired(){
+    public function isCredentialsNonExpired()
+    {
         return $this->credentialsNonExpired;
     }
 
@@ -99,7 +107,8 @@ class User implements UserDetails
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication\UserDetails::isEnabled()
      */
-    function isEnabled(){
+    public function isEnabled()
+    {
         return $this->enabled;
     }
 }

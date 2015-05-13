@@ -9,35 +9,35 @@ interface SecurityContext
     
     /**
      * Authentication setter
-     * 
+     *
      * @param Authentication $authentication
      */
-    function setAuthentication(Authentication $authentication);
+    public function setAuthentication(Authentication $authentication);
     
     /**
      * Authentication getter
-     * 
+     *
      * @return Authentication
      */
-    function getAuthentication();
+    public function getAuthentication();
     
     
     /**
      * AccessDecisionManager getter
-     * 
+     *
      * @return AccessDecisionManager
      */
-    function getAccessDecisionManager();
+    public function getAccessDecisionManager();
     
     /**
      * Quick access to the hasRole condition
-     * 
+     *
      * @param string $roleName
      */
-    function hasRole($roleName);
+    public function hasRole($roleName);
 
     /**
      * @param array $roles
      */
-    function hasAnyRole($roles);
+    public function hasAnyRole($roles);
 }

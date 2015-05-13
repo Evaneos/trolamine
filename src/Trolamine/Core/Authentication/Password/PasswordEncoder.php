@@ -11,5 +11,5 @@ interface PasswordEncoder
      *
      * @return string the encoded password
      */
-    function encodePassword($password, $salt = null);
+    public function encodePassword($password, $salt = null);
 }

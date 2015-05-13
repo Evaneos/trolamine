@@ -17,48 +17,56 @@ abstract class AbstractAccessDecisionManager implements AccessDecisionManager
     const ACCESSDENIED = 'Access Denied!';
     
     /**
-     * 
+     *
      * @var array<AccessDecisionVoter>
      */
     private $decisionVoters;
 
     /**
-     * 
+     *
      * @var boolean
      */
     private $allowIfAllAbstainDecisions = false;
 
-    function __construct(array $decisionVoters=array()) {
+    public function __construct(array $decisionVoters=array())
+    {
         $this->decisionVoters = $decisionVoters;
     }
 
-    protected function checkAllowIfAllAbstainDecisions() {
+    protected function checkAllowIfAllAbstainDecisions()
+    {
         if (!$this->isAllowIfAllAbstainDecisions()) {
             throw new AccessDeniedException(self::ACCESSDENIED);
         }
     }
 
-    public function getDecisionVoters() {
+    public function getDecisionVoters()
+    {
         return $this->decisionVoters;
     }
 
-    public function isAllowIfAllAbstainDecisions() {
+    public function isAllowIfAllAbstainDecisions()
+    {
         return $this->allowIfAllAbstainDecisions;
     }
 
-    public function setAllowIfAllAbstainDecisions($allowIfAllAbstainDecisions) {
+    public function setAllowIfAllAbstainDecisions($allowIfAllAbstainDecisions)
+    {
         $this->allowIfAllAbstainDecisions = $allowIfAllAbstainDecisions;
     }
 
-    public function addDecisionVoter(AccessDecisionVoter $voter) {
+    public function addDecisionVoter(AccessDecisionVoter $voter)
+    {
         $this->decisionVoters[] = $voter;
     }
     
-    public function setDecisionVoters(array $newList) {
+    public function setDecisionVoters(array $newList)
+    {
         $this->decisionVoters = $newList;
     }
 
-    public function supports($attribute) {
+    public function supports($attribute)
+    {
         $voters = $this->decisionVoters;
         foreach ($voters as $voter) {
             /* @var $voter AccessDecisionVoter */
@@ -81,7 +89,8 @@ abstract class AbstractAccessDecisionManager implements AccessDecisionManager
      *
      * @return boolean true if this type is supported
      */
-    public function supportsClass($class) {
+    public function supportsClass($class)
+    {
         $voters = $this->decisionVoters;
         foreach ($voters as $voter) {
             /* @var $voter AccessDecisionVoter */

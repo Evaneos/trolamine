@@ -3,7 +3,7 @@ namespace Trolamine\Core\Authentication;
 
 /**
  * An abstract authentication object
- * 
+ *
  * @author Remi
  *
  */
@@ -30,12 +30,13 @@ abstract class AbstractAuthentication implements Authentication
     protected $credentials;
     
     /**
-     * 
+     *
      * @param UserDetails   $user
      * @param string        $mode
      * @param array<string> $authorities
      */
-    public function __construct(UserDetails $user=null, $mode, array $authorities=array()) {
+    public function __construct(UserDetails $user=null, $mode, array $authorities=array())
+    {
         $this->user = $user;
         $this->mode = $mode;
         $this->authorities= $authorities;
@@ -45,7 +46,8 @@ abstract class AbstractAuthentication implements Authentication
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication::getAuthenticatedUser()
      */
-    function getAuthenticatedUser() {
+    public function getAuthenticatedUser()
+    {
         return $this->user;
     }
     
@@ -53,7 +55,8 @@ abstract class AbstractAuthentication implements Authentication
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication::getAuthenticationMode()
      */
-    function getAuthenticationMode() {
+    public function getAuthenticationMode()
+    {
         return $this->mode;
     }
     
@@ -61,7 +64,8 @@ abstract class AbstractAuthentication implements Authentication
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication::getAuthorities()
      */
-    function getAuthorities() {
+    public function getAuthorities()
+    {
         return $this->authorities;
     }
     
@@ -69,13 +73,14 @@ abstract class AbstractAuthentication implements Authentication
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication\Authentication::getCredentials()
      */
-    abstract function getCredentials();
+    abstract public function getCredentials();
     
     /**
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication\Authentication::getPrincipal()
      */
-    function getPrincipal() {
+    public function getPrincipal()
+    {
         return $this->principal;
     }
 }

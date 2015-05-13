@@ -7,10 +7,10 @@ interface RoleManager
 {
     
     /**
-     * 
+     *
      * @param UserDetails $userDetails
-     * 
+     *
      * @return array the array of roles
      */
-    function getRoles(UserDetails $userDetails);
+    public function getRoles(UserDetails $userDetails);
 }

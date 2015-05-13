@@ -16,5 +16,5 @@ interface UserDetailsService
      *
      * @throws InsufficientAuthenticationException if the user could not be found or the user has no GrantedAuthority
      */
-    function loadUserByUsername($username);
+    public function loadUserByUsername($username);
 }

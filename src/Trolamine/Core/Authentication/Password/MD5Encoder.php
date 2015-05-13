@@ -9,7 +9,8 @@ class MD5Encoder implements PasswordEncoder
      * @param  string $password
      * @return string
      */
-    function encodePassword($password, $salt = null) {
+    public function encodePassword($password, $salt = null)
+    {
         return md5($password);
     }
 }

@@ -21,7 +21,7 @@ class Secured
     /**
      * ONLY USE WHEN NO OTHER SOLUTION IS APPLICABLE
      * Disables security
-     * 
+     *
      * @var bool
      */
     public static $BYPASS = false;
@@ -35,37 +35,39 @@ class Secured
      *     ),
      *     ...
      * )
-     * 
+     *
      * @var array
      */
     protected $config;
     
     /**
      * The securityContext
-     * 
+     *
      * @var SecurityContext
      */
     protected $securityContext;
     
     /**
      * Constructor
-     * 
+     *
      * @param SecurityContext $securityContext
      * @param array $config
      */
-    public function __construct(SecurityContext $securityContext, array $config = array()) {
+    public function __construct(SecurityContext $securityContext, array $config = array())
+    {
         $this->securityContext = $securityContext;
         $this->config = $config;
     }
     
-    protected function getParametersByRealValues($args, array $parameters, $object=null) {
+    protected function getParametersByRealValues($args, array $parameters, $object=null)
+    {
         $newArgs = array();
         if ($args != null && is_array($args) && count($args)>0) {
             foreach ($args as $key=>$arg) {
                 $newArg = $arg;
                 if ($arg == self::RETURN_OBJECT_ALIAS) {
                     $newArg = &$object;
-                } else if (is_string($arg) && strpos($arg, self::PREFIX) === 0) {
+                } elseif (is_string($arg) && strpos($arg, self::PREFIX) === 0) {
                     $argName = substr($arg, 1);
                     if (array_key_exists($argName, $parameters)) {
                         $newArg = &$parameters[$argName];
@@ -77,7 +79,8 @@ class Secured
         return $newArgs;
     }
     
-    private function addConfigAttributes($configAttributes, $key, $actionName) {
+    private function addConfigAttributes($configAttributes, $key, $actionName)
+    {
         if (array_key_exists($key, $this->config)) {
             $actions = $this->config[$key];
             if (is_array($actions) && count($actions)>0 && array_key_exists($actionName,  $actions)) {
@@ -93,14 +96,14 @@ class Secured
     
     /**
      * Retrieves the conditions to check and checks them
-     * 
+     *
      * @param string $method     the method name to check
      * @param array  $parameters the method parameters
      * @param string $actionName the security action (PRE/POST-AUTH/FILT)
      * @param mixed  $object     the reference object
      */
-    protected function process($method, array $parameters, $actionName, $object=null) {
-        
+    protected function process($method, array $parameters, $actionName, $object=null)
+    {
         if (self::$BYPASS) {
             return;
         }
@@ -108,7 +111,6 @@ class Secured
         $methodName = $method;
         
         if (is_array($this->config) && count($this->config)>0 && (array_key_exists(self::ALL, $this->config) || array_key_exists($methodName, $this->config))) {
-            
             $configAttributes = array();
             $configAttributes = $this->addConfigAttributes($configAttributes, self::ALL, $actionName);
             $configAttributes = $this->addConfigAttributes($configAttributes, $methodName, $actionName);
@@ -126,13 +128,13 @@ class Secured
                     $newConfigAttributes[] = $newConfigAttribute;
                 }
                 
-                if ($actionName == self::PRE_AUTHORIZE || $actionName == self::POST_AUTHORIZE) {    
+                if ($actionName == self::PRE_AUTHORIZE || $actionName == self::POST_AUTHORIZE) {
                     $this->securityContext->getAccessDecisionManager()->decide(
                         $this->securityContext->getAuthentication(),
                         $object,
                         $newConfigAttributes
                     );
-                } else if ($actionName == self::PRE_FILTER || $actionName == self::POST_FILTER) {
+                } elseif ($actionName == self::PRE_FILTER || $actionName == self::POST_FILTER) {
                     foreach ($newConfigAttributes as $attribute) {
                         // Update the parameters (only objects)
                         OperationsUtil::evaluate($this->securityContext->getAuthentication(), $attribute);
@@ -145,23 +147,26 @@ class Secured
     /**
      * The PreAuthorize method to be called before the real method call
      */
-    public function preAuthorize($method, array $parameters=array()) {
+    public function preAuthorize($method, array $parameters=array())
+    {
         $this->process($method, $parameters, self::PRE_AUTHORIZE);
     }
     
     /**
      * The PostAuthorize method to be called after the real method has returned a value
-     * 
+     *
      * @param mixed $response the response of the method to secure
      */
-    public function postAuthorize($method, array $parameters=array(), $response) {
+    public function postAuthorize($method, array $parameters=array(), $response)
+    {
         $this->process($method, $parameters, self::POST_AUTHORIZE, $response);
     }
     
     /**
      * The PreFilter method to be called before the real method call
      */
-    public function preFilter($method, array $parameters=array()) {
+    public function preFilter($method, array $parameters=array())
+    {
         $this->process($method, $parameters, self::PRE_FILTER);
         return $parameters;
     }
@@ -171,7 +176,8 @@ class Secured
      *
      * @param mixed $response the response of the method to secure
      */
-    public function postFilter($method, array $parameters=array(), $response) {
+    public function postFilter($method, array $parameters=array(), $response)
+    {
         $this->process($method, $parameters, self::POST_FILTER, $response);
         return $response;
     }
