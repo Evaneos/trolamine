@@ -71,13 +71,14 @@ abstract class AbstractAccessDecisionManager implements AccessDecisionManager
     }
 
     /**
+     * @todo: modifier le code pour correspondre à la docs. (à revoir)
      * Iterates through all <code>AccessDecisionVoter</code>s and ensures each can support the presented class.
      * <p/>
      * If one or more voters cannot support the presented class, <code>false</code> is returned.
      * </p>
      *
      * @param  string  $class the type of secured object being presented
-     * 
+     *
      * @return boolean true if this type is supported
      */
     public function supportsClass($class) {
@@ -90,5 +91,5 @@ abstract class AbstractAccessDecisionManager implements AccessDecisionManager
         }
 
         return true;
-    }    
+    }
 }

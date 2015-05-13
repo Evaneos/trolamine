@@ -45,7 +45,7 @@ class AffirmativeBased extends AbstractAccessDecisionManager
             }
         }
 
-        if (deny > 0) {
+        if ($deny > 0) {
             throw new AccessDeniedException(AbstractAccessDecisionManager::ACCESSDENIED);
         }
 
