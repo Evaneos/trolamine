@@ -3,7 +3,7 @@ namespace Trolamine\Core\Authentication;
 
 /**
  * The authentication object
- * 
+ *
  * @author Remi
  *
  */
@@ -19,33 +19,33 @@ interface Authentication
      *
      * @return string
      */
-    function getCredentials();
+    public function getCredentials();
     
     /**
      * Returns the username
      *
      * @return string
      */
-    function getPrincipal();
+    public function getPrincipal();
     
     /**
      * Returns the authenticated user object
-     * 
+     *
      * @return UserDetails authenticated user
      */
-    function getAuthenticatedUser();
+    public function getAuthenticatedUser();
     
     /**
      * Returns the authentication mode
-     * 
+     *
      * @return string the authentication mode
      */
-    function getAuthenticationMode();
+    public function getAuthenticationMode();
     
     /**
      * Returns the authenticated user authorities list
-     * 
+     *
      * @return array
      */
-    function getAuthorities();
+    public function getAuthorities();
 }

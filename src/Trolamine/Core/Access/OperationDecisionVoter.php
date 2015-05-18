@@ -10,15 +10,17 @@ class OperationDecisionVoter implements AccessDecisionVoter
      * (non-PHPdoc)
      * @see \Trolamine\Core\Access\AccessDecisionVoter::supports()
      */
-    function supports($attribute) {
-        return ($attribute instanceof OperationConfigAttribute);
+    public function supports($attribute)
+    {
+        return $attribute instanceof OperationConfigAttribute;
     }
 
     /**
      * (non-PHPdoc)
      * @see \Trolamine\Core\Access\AccessDecisionVoter::supportsClass()
      */
-    function supportsClass($class) {
+    public function supportsClass($class)
+    {
         return true;
     }
 
@@ -26,8 +28,8 @@ class OperationDecisionVoter implements AccessDecisionVoter
      * (non-PHPdoc)
      * @see \Trolamine\Core\Access\AccessDecisionVoter::vote()
      */
-    function vote(Authentication $authentication, $object, array $attributes) {
-        
+    public function vote(Authentication $authentication, $object, array $attributes)
+    {
         $denied = false;
         
         foreach ($attributes as $attribute) {

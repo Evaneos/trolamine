@@ -9,7 +9,8 @@ class AnonymousAuthenticationToken extends AbstractAuthentication
      * <code>AnonymousAuthenticationToken</code>, as the {@link
      * #getAuthenticationMode()} will return <code>ANONYMOUS</code>.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct(null, Authentication::ANONYMOUS);
         $this->principal = null;
         $this->credentials = null;
@@ -19,14 +20,16 @@ class AnonymousAuthenticationToken extends AbstractAuthentication
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication\AbstractAuthentication::getCredentials()
      */
-    public function getCredentials() {
+    public function getCredentials()
+    {
         return null;
     }
     
     /**
      * Returns a default authorities array
      */
-    function buildAuthorities() {
+    public function buildAuthorities()
+    {
         $this->authorities = array();
     }
 }

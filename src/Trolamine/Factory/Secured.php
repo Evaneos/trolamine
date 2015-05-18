@@ -59,78 +59,41 @@ class Secured
         $this->config = $config;
     }
 
-    /**
-     * The PreAuthorize method to be called before the real method call
-     *
-     * @param string|array|callback $method
-     * @param array                 $parameters
-     */
-    public function preAuthorize($method, array $parameters = array())
-    {
-        $this->process($method, $parameters, self::PRE_AUTHORIZE);
-    }
-
-    /**
-     * The PostAuthorize method to be called after the real method has returned a value
-     *
-     * @param string|array|callback $method
-     * @param array                 $parameters
-     * @param mixed                 $response the response of the method to secure
-     */
-    public function postAuthorize($method, array $parameters = array(), $response)
-    {
-        $this->process($method, $parameters, self::POST_AUTHORIZE, $response);
-    }
-
-    /**
-     * The PreFilter method to be called before the real method call
-     *
-     * @param string|array|callback $method
-     * @param array                 $parameters
-     * @return array parameters
-     */
-    public function preFilter($method, array $parameters = array())
-    {
-        $this->process($method, $parameters, self::PRE_FILTER);
-        return $parameters;
-    }
-
-    /**
-     * The PostFilter method to be called after the real method has returned a value
-     *
-     * @param string|array|callback $method
-     * @param array                 $parameters
-     * @param mixed                 $response the response of the method to secure
-     * @return mixed
-     */
-    public function postFilter($method, array $parameters, $response)
-    {
-        $this->process($method, $parameters, self::POST_FILTER, $response);
-        return $response;
-    }
-
-    protected function getParametersByRealValues($args, array $parameters, &$object = null)
+    protected function getParametersByRealValues($args, array $parameters, $object = null)
     {
         $newArgs = array();
         if ($args != null && is_array($args) && !empty($args)) {
             foreach ($args as $key => $arg) {
                 if ($arg == self::RETURN_OBJECT_ALIAS) {
                     $newArgs[$key] = &$object;
-                } else {
-                    if (is_string($arg) && strpos($arg, self::PREFIX) === 0) {
-                        $newArg = $arg;
-                        $argName = substr($arg, 1);
-                        if (array_key_exists($argName, $parameters)) {
-                            $newArg = &$parameters[$argName];
-                        }
-                        $newArgs[$key] = $newArg;
-                    } else {
-                        $newArgs[$key] = $arg;
+                } elseif (is_string($arg) && strpos($arg, self::PREFIX) === 0) {
+                    $newArg = $arg;
+                    $argName = substr($arg, 1);
+                    if (array_key_exists($argName, $parameters)) {
+                        $newArg = &$parameters[$argName];
                     }
+                    $newArgs[$key] = $newArg;
+                } else {
+                    $newArgs[$key] = $arg;
                 }
             }
         }
         return $newArgs;
+    }
+
+    private function addConfigAttributes($configAttributes, $key, $actionName)
+    {
+        if (array_key_exists($key, $this->config)) {
+            $actions = $this->config[$key];
+            if (is_array($actions) && !empty($actions) && array_key_exists($actionName, $actions)) {
+                $localConfigAttributes = $actions[$actionName];
+
+                if (is_array($localConfigAttributes) && !empty($localConfigAttributes)) {
+                    $configAttributes = array_merge($configAttributes, $localConfigAttributes);
+                }
+            }
+        }
+        return $configAttributes;
     }
 
     /**
@@ -143,7 +106,6 @@ class Secured
      */
     protected function process($method, array $parameters, $actionName, &$object = null)
     {
-
         if (self::$BYPASS) {
             return;
         }
@@ -151,7 +113,7 @@ class Secured
         $methodName = $method;
 
         if (is_array($this->config) && !empty($this->config)
-                && (array_key_exists(self::ALL, $this->config) || array_key_exists($methodName, $this->config))
+            && (array_key_exists(self::ALL, $this->config) || array_key_exists($methodName, $this->config))
         ) {
             $configAttributes = array();
             $configAttributes = $this->addConfigAttributes($configAttributes, self::ALL, $actionName);
@@ -175,30 +137,51 @@ class Secured
                         $object,
                         $newConfigAttributes
                     );
-                } else {
-                    if ($actionName == self::PRE_FILTER || $actionName == self::POST_FILTER) {
-                        foreach ($newConfigAttributes as $attribute) {
-                            // Update the parameters (only objects)
-                            OperationsUtil::evaluate($this->securityContext->getAuthentication(), $attribute);
-                        }
+                } elseif ($actionName == self::PRE_FILTER || $actionName == self::POST_FILTER) {
+                    foreach ($newConfigAttributes as $attribute) {
+                        // Update the parameters (only objects)
+                        OperationsUtil::evaluate($this->securityContext->getAuthentication(), $attribute);
                     }
                 }
             }
         }
     }
 
-    private function addConfigAttributes($configAttributes, $key, $actionName)
+    /**
+     * The PreAuthorize method to be called before the real method call
+     */
+    public function preAuthorize($method, array $parameters = array())
     {
-        if (array_key_exists($key, $this->config)) {
-            $actions = $this->config[$key];
-            if (is_array($actions) && !empty($actions) && array_key_exists($actionName, $actions)) {
-                $localConfigAttributes = $actions[$actionName];
+        $this->process($method, $parameters, self::PRE_AUTHORIZE);
+    }
 
-                if (is_array($localConfigAttributes) && !empty($localConfigAttributes)) {
-                    $configAttributes = array_merge($configAttributes, $localConfigAttributes);
-                }
-            }
-        }
-        return $configAttributes;
+    /**
+     * The PostAuthorize method to be called after the real method has returned a value
+     *
+     * @param mixed $response the response of the method to secure
+     */
+    public function postAuthorize($method, array $parameters = array(), $response)
+    {
+        $this->process($method, $parameters, self::POST_AUTHORIZE, $response);
+    }
+
+    /**
+     * The PreFilter method to be called before the real method call
+     */
+    public function preFilter($method, array $parameters = array())
+    {
+        $this->process($method, $parameters, self::PRE_FILTER);
+        return $parameters;
+    }
+
+    /**
+     * The PostFilter method to be called after the real method has returned a value
+     *
+     * @param mixed $response the response of the method to secure
+     */
+    public function postFilter($method, array $parameters = array(), $response)
+    {
+        $this->process($method, $parameters, self::POST_FILTER, $response);
+        return $response;
     }
 }

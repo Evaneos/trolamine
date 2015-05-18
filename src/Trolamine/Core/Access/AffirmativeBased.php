@@ -24,11 +24,12 @@ class AffirmativeBased extends AbstractAccessDecisionManager
      * @throws AccessDeniedException  if access is denied as the authentication does not hold a required authority or
      *         ACL privilege
      */
-    public function decide(Authentication $authentication, $object, array $configAttributes) {
+    public function decide(Authentication $authentication, $object, array $configAttributes)
+    {
         $deny = 0;
 
         $voters = $this->getDecisionVoters();
-        foreach($voters as $voter) {
+        foreach ($voters as $voter) {
             /* @var $voter AccessDecisionVoter */
             $result = $voter->vote($authentication, $object, $configAttributes);
 
@@ -45,7 +46,7 @@ class AffirmativeBased extends AbstractAccessDecisionManager
             }
         }
 
-        if (deny > 0) {
+        if ($deny > 0) {
             throw new AccessDeniedException(AbstractAccessDecisionManager::ACCESSDENIED);
         }
 

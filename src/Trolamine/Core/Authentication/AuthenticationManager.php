@@ -27,5 +27,5 @@ interface AuthenticationManager
      *
      * @throws AuthenticationException if authentication fails
      */
-    function authenticate(Authentication $authentication);
+    public function authenticate(Authentication $authentication);
 }

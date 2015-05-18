@@ -24,14 +24,14 @@ interface UserDetails
      *
      * @return object the user object encapsulated
      */
-    function getUser();
+    public function getUser();
 
     /**
      * Returns the password used to authenticate the user.
      *
      * @return string the password
      */
-    function getPassword();
+    public function getPassword();
 
 
     /**
@@ -39,28 +39,28 @@ interface UserDetails
      *
      * @return string the password salt
      */
-    function getSalt();
+    public function getSalt();
 
     /**
      * Returns the username used to authenticate the user. Cannot return <code>null</code>.
      *
      * @return string the username (never <code>null</code>)
      */
-    function getUsername();
+    public function getUsername();
 
     /**
      * Indicates whether the user's account has expired. An expired account cannot be authenticated.
      *
      * @return string <code>true</code> if the user's account is valid (ie non-expired), <code>false</code> if no longer valid (ie expired)
      */
-    function isAccountNonExpired();
+    public function isAccountNonExpired();
 
     /**
      * Indicates whether the user is locked or unlocked. A locked user cannot be authenticated.
      *
      * @return string <code>true</code> if the user is not locked, <code>false</code> otherwise
      */
-    function isAccountNonLocked();
+    public function isAccountNonLocked();
 
     /**
      * Indicates whether the user's credentials (password) has expired. Expired credentials prevent
@@ -68,12 +68,12 @@ interface UserDetails
      *
      * @return string <code>true</code> if the user's credentials are valid (ie non-expired), <code>false</code> if no longer valid (ie expired)
     */
-    function isCredentialsNonExpired();
+    public function isCredentialsNonExpired();
 
     /**
      * Indicates whether the user is enabled or disabled. A disabled user cannot be authenticated.
      *
      * @return string <code>true</code> if the user is enabled, <code>false</code> otherwise
     */
-    function isEnabled();
+    public function isEnabled();
 }

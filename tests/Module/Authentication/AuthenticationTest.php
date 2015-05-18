@@ -1,13 +1,14 @@
 <?php
+namespace Trolamine\Tests\Module\Authentication;
 
 use Trolamine\Core\Authentication\User;
 use Trolamine\Core\Authentication\Password\MD5Encoder;
 use Trolamine\Core\Authentication\UserDetailsService;
 use Trolamine\Core\Authentication\BaseAuthenticationManager;
 use Trolamine\Core\Authentication\UsernamePasswordAuthenticationToken;
-class AuthenticationTest extends PHPUnit_Framework_TestCase
-{
 
+class AuthenticationTest extends \PHPUnit_Framework_TestCase
+{
     private $passwordEncoder;
 
     public function setUp() {

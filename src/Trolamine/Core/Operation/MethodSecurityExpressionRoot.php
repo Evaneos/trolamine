@@ -14,7 +14,8 @@ class MethodSecurityExpressionRoot extends SecurityExpressionRoot implements Met
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\MethodSecurityExpressionOperations::setFilterObject()
      */
-    public function setFilterObject($filterObject) {
+    public function setFilterObject($filterObject)
+    {
         $this->filterObject = $filterObject;
     }
 
@@ -22,7 +23,8 @@ class MethodSecurityExpressionRoot extends SecurityExpressionRoot implements Met
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\MethodSecurityExpressionOperations::getFilterObject()
      */
-    public function getFilterObject() {
+    public function getFilterObject()
+    {
         return $this->filterObject;
     }
 
@@ -30,7 +32,8 @@ class MethodSecurityExpressionRoot extends SecurityExpressionRoot implements Met
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\MethodSecurityExpressionOperations::setReturnObject()
      */
-    public function setReturnObject($returnObject) {
+    public function setReturnObject($returnObject)
+    {
         $this->returnObject = $returnObject;
     }
 
@@ -38,7 +41,8 @@ class MethodSecurityExpressionRoot extends SecurityExpressionRoot implements Met
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\MethodSecurityExpressionOperations::getReturnObject()
      */
-    public function getReturnObject() {
+    public function getReturnObject()
+    {
         return $this->returnObject;
     }
 
@@ -48,7 +52,8 @@ class MethodSecurityExpressionRoot extends SecurityExpressionRoot implements Met
      *
      * @param object target the target object on which the method in is being invoked.
      */
-    function setThis($target) {
+    public function setThis($target)
+    {
         $this->target = $target;
     }
 
@@ -56,7 +61,8 @@ class MethodSecurityExpressionRoot extends SecurityExpressionRoot implements Met
      * (non-PHPdoc)
      * @see \Trolamine\Core\Operation\MethodSecurityExpressionOperations::getThis()
      */
-    public function getThis() {
+    public function getThis()
+    {
         return $this->target;
     }
 }

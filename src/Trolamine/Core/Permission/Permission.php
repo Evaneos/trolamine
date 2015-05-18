@@ -3,7 +3,7 @@ namespace Trolamine\Core\Permission;
 
 /**
  * Describes a permission
- * 
+ *
  * @author Remi
  */
 interface Permission
@@ -14,24 +14,24 @@ interface Permission
      *
      * @return the bits that represent the permission
      */
-    function getMask();
+    public function getMask();
     
     /**
      * Returns the code that represents the permission.
      *
      * @return the code that represent the permission
      */
-    function getCode();
+    public function getCode();
     
     /**
      * Returns character bit pattern <code>String</code> representing this permission.
-     * 
+     *
      * This method is only used for user interface and logging purposes. It is not used in any permission
      * calculations. Therefore, duplication of characters within the output is permitted.
      *
      * @return string
      */
-    function getPattern();
+    public function getPattern();
     
     /**
      * Are permissions equal ?
@@ -40,14 +40,14 @@ interface Permission
      *
      * @return boolean
      */
-    function equals($obj);
+    public function equals($obj);
     
     /**
-     * Does local permission contains the permission passed in parameter ? 
-     * 
+     * Does local permission contains the permission passed in parameter ?
+     *
      * @param Object $obj
-     * 
+     *
      * @return boolean
      */
-    function contains($obj);
+    public function contains($obj);
 }

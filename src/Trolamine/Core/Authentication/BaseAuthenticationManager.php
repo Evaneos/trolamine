@@ -36,7 +36,8 @@ class BaseAuthenticationManager implements AuthenticationManager
     public function __construct(
             UserDetailsService $userDetailsService=null,
             PasswordEncoder $passwordEncoder=null,
-            RoleManager $roleManager=null) {
+            RoleManager $roleManager=null)
+    {
         $this->userDetailsService =  $userDetailsService;
         $this->passwordEncoder = $passwordEncoder;
         $this->roleManager = $roleManager;
@@ -46,7 +47,8 @@ class BaseAuthenticationManager implements AuthenticationManager
      * (non-PHPdoc)
      * @see \Trolamine\Core\Authentication\AuthenticationManager::authenticate()
      */
-    function authenticate(Authentication $authentication) {
+    public function authenticate(Authentication $authentication)
+    {
         if ($this->userDetailsService == null) {
             throw \RuntimeException('You have to declare a UserDetailsService.');
         }
@@ -82,7 +84,8 @@ class BaseAuthenticationManager implements AuthenticationManager
      *
      * @param UserDetailsService $userDetailsService
      */
-    public function setUserDetailsService(UserDetailsService $userDetailsService) {
+    public function setUserDetailsService(UserDetailsService $userDetailsService)
+    {
         $this->userDetailsService =  $userDetailsService;
     }
 
@@ -90,7 +93,8 @@ class BaseAuthenticationManager implements AuthenticationManager
      *
      * @param PasswordEncoder $passwordEncoder
      */
-    public function setPasswordEncoder(PasswordEncoder $passwordEncoder) {
+    public function setPasswordEncoder(PasswordEncoder $passwordEncoder)
+    {
         $this->passwordEncoder = $passwordEncoder;
     }
 
@@ -98,7 +102,8 @@ class BaseAuthenticationManager implements AuthenticationManager
      *
      * @param RoleManager $roleManager
      */
-    public function setRoleManager(RoleManager $roleManager) {
+    public function setRoleManager(RoleManager $roleManager)
+    {
         $this->roleManager = $roleManager;
     }
 }
