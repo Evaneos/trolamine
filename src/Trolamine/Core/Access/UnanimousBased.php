@@ -22,13 +22,13 @@ class UnanimousBased extends AbstractAccessDecisionManager
      * If every <code>AccessDecisionVoter</code> abstained from voting, the decision will be based on the
      * {@link #isAllowIfAllAbstainDecisions()} property (defaults to false).
      *
-     * @param  Authentication         $authentication   the caller invoking the method (not null)
+     * @param  Authentication         $authentication   the caller invoking the method
      * @param  object                 $object           the secured object being called
      * @param  array<ConfigAttribute> $configAttributes the configuration attributes associated with the secured object being invoked
      *
      * @throws AccessDeniedException  if access is denied as the authentication does not hold a required authority or ACL privilege
      */
-    public function decide(Authentication $authentication, $object, array $configAttributes)
+    public function decide(Authentication $authentication = null, $object, array $configAttributes)
     {
         $grant = 0;
     
