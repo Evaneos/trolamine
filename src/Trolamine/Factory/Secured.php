@@ -59,20 +59,20 @@ class Secured
         $this->config = $config;
     }
 
-    protected function getParametersByRealValues($args, array $parameters, $object = null)
+    protected function getParametersByRealValues($args, array $parameters, &$object = null)
     {
         $newArgs = array();
-        if ($args != null && is_array($args) && !empty($args)) {
+        if (!empty($args) && is_array($args)) {
             foreach ($args as $key => $arg) {
                 if ($arg == self::RETURN_OBJECT_ALIAS) {
                     $newArgs[$key] = &$object;
                 } elseif (is_string($arg) && strpos($arg, self::PREFIX) === 0) {
-                    $newArg = $arg;
+                    $newArgs[$key] = $arg;
                     $argName = substr($arg, 1);
                     if (array_key_exists($argName, $parameters)) {
-                        $newArg = &$parameters[$argName];
+                        $value = &$parameters[$argName];
+                        $newArgs[$key] = $value;
                     }
-                    $newArgs[$key] = $newArg;
                 } else {
                     $newArgs[$key] = $arg;
                 }

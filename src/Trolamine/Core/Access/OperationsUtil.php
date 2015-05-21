@@ -5,7 +5,7 @@ use Trolamine\Core\Authentication\Authentication;
 
 class OperationsUtil
 {
-    
+
     /**
      * Evaluates the operation
      *
@@ -17,6 +17,15 @@ class OperationsUtil
     {
         $root = $attribute->root;
         $root->setAuthentication($authentication);
-        return call_user_func_array(array($root, $attribute->method), $attribute->args);
+
+        $newArgs = array();
+        foreach ($attribute->args as $key => $arg) {
+            if (is_object($arg)) {
+                $newArgs[$key] = $attribute->args[$key];
+            } else {
+                $newArgs[$key] = &$attribute->args[$key];
+            }
+        }
+        return call_user_func_array(array($root, $attribute->method), $newArgs);
     }
 }
