@@ -51,11 +51,11 @@ class ConsensusBased extends AbstractAccessDecisionManager
                 case AccessDecisionVoter::ACCESS_GRANTED:
                     $grant++;
                     break;
-    
+
                 case AccessDecisionVoter::ACCESS_DENIED:
                     $deny++;
                     break;
-    
+
                 default:
                     break;
             }
@@ -66,14 +66,14 @@ class ConsensusBased extends AbstractAccessDecisionManager
         }
 
         if ($deny > $grant) {
-            throw new AccessDeniedException(AbstractAccessDecisionManager::ACCESSDENIED);
+            throw $this->createAccessDeniedException($authentication);
         }
 
         if (($grant == $deny) && ($grant != 0)) {
             if ($this->allowIfEqualGrantedDeniedDecisions) {
                 return;
             } else {
-                throw new AccessDeniedException(AbstractAccessDecisionManager::ACCESSDENIED);
+                throw $this->createAccessDeniedException($authentication);
             }
         }
 

@@ -47,7 +47,7 @@ class AffirmativeBased extends AbstractAccessDecisionManager
         }
 
         if ($deny > 0) {
-            throw new AccessDeniedException(AbstractAccessDecisionManager::ACCESSDENIED);
+            throw $this->createAccessDeniedException($authentication);
         }
 
         // To get this far, every AccessDecisionVoter abstained

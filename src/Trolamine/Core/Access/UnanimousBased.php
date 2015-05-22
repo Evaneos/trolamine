@@ -31,35 +31,35 @@ class UnanimousBased extends AbstractAccessDecisionManager
     public function decide(Authentication $authentication, $object, array $configAttributes)
     {
         $grant = 0;
-    
+
         foreach ($configAttributes as $attribute) {
             /* @var $attribute ConfigAttribute */
             $singleAttributeList = array($attribute);
-    
+
             $voters = $this->getDecisionVoters();
             foreach ($voters as $voter) {
                 /* @var $voter AccessDecisionVoter */
                 $result = $voter->vote($authentication, $object, $singleAttributeList);
-    
+
                 switch ($result) {
                     case AccessDecisionVoter::ACCESS_GRANTED:
                         $grant++;
                         break;
-    
+
                     case AccessDecisionVoter::ACCESS_DENIED:
-                        throw new AccessDeniedException(AbstractAccessDecisionManager::ACCESSDENIED);
-    
+                        throw $this->createAccessDeniedException($authentication);
+
                     default:
                         break;
                 }
             }
         }
-    
+
         // To get this far, there were no deny votes
         if ($grant > 0) {
             return;
         }
-    
+
         // To get this far, every AccessDecisionVoter abstained
         $this->checkAllowIfAllAbstainDecisions();
     }

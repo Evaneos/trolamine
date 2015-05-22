@@ -1,6 +1,7 @@
 <?php
 namespace Trolamine\Core\Access;
 
+use Trolamine\Core\Authentication\Authentication;
 use Trolamine\Core\Exception\AccessDeniedException;
 
 /**
@@ -15,7 +16,7 @@ abstract class AbstractAccessDecisionManager implements AccessDecisionManager
 {
 
     const ACCESSDENIED = 'Access Denied!';
-    
+
     /**
      *
      * @var array<AccessDecisionVoter>
@@ -59,7 +60,7 @@ abstract class AbstractAccessDecisionManager implements AccessDecisionManager
     {
         $this->decisionVoters[] = $voter;
     }
-    
+
     public function setDecisionVoters(array $newList)
     {
         $this->decisionVoters = $newList;
@@ -76,6 +77,15 @@ abstract class AbstractAccessDecisionManager implements AccessDecisionManager
         }
 
         return false;
+    }
+
+    protected function createAccessDeniedException(Authentication $authentication)
+    {
+        $exception = new AccessDeniedException(
+            AbstractAccessDecisionManager::ACCESSDENIED
+        );
+        $exception->setAuthentication($authentication);
+        return $exception;
     }
 
     /**
