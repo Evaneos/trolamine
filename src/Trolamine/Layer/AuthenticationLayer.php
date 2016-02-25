@@ -83,17 +83,6 @@ class AuthenticationLayer extends AbstractLayer implements LoggerAwareInterface
         if ($authentication == null) {
             $authentication = new AnonymousAuthenticationToken();
         }
-        if ($this->logger) {
-            $this->logger->info('entering authentication layer', array(
-                'auth'          => $authentication->getPrincipal(),
-                'phpsessid'     => $request->cookies->get(ini_get('session.name')),
-                'signature'     => md5($request->headers->get('user-agent') . $request->getClientIp()),
-                'ip'            => $request->getClientIp(),
-                'method'        => $request->getMethod(),
-                'uri'           => $request->getUri(),
-                'ua'            => $request->headers->get('user-agent'),
-            ));
-        }
 
         $responseBag->set(self::VAR_NAME, $authentication);
         $this->securityContext->setAuthentication($authentication);
