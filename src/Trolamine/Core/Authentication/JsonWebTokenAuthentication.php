@@ -5,9 +5,6 @@ namespace Trolamine\Core\Authentication;
 
 class JsonWebTokenAuthentication extends AbstractAuthentication
 {
-    /** @var string  */
-    private $jwt;
-
     /**
      * JsonWebTokenAuthentication constructor.
      *
@@ -27,7 +24,7 @@ class JsonWebTokenAuthentication extends AbstractAuthentication
             $this->principal = $user->getUsername();
         }
 
-        $this->jwt = $jwt;
+        $this->credentials = $jwt;
     }
 
     /**
@@ -35,8 +32,7 @@ class JsonWebTokenAuthentication extends AbstractAuthentication
      */
     public function getCredentials()
     {
-        //We never return the password in this context
-        return $this->jwt;
+        return $this->credentials;
     }
 
     /**
